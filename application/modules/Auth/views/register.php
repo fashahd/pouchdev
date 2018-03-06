@@ -13,8 +13,9 @@
             <img src="<?=base_url()?>appsources/mypouch-color.png" alt="">
           </div>
 
-          <form class="login100-form validate-form" id="regis">
+          <form class="login100-form validate-form" id="regis" style="width:350px">
             <span class="regis100-form-title">Feel the different experience</span>
+            <span class="regis-error" id="errormsg"></span>
             <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
               <input class="input100" type="text" name="email" placeholder="Email" required>
               <span class="focus-input100"></span>
@@ -59,7 +60,7 @@
             </div>
 
             <div class="container-login100-form-btn">
-              <button class="login100-form-btn" type="submit">Create Account</button>
+              <span id="btnregist"><button class="login100-form-btn" type="submit">Create Account</button></span>
               <p style="margin-top:10px">Already have an account ? <a href="<?=base_url()?>auth/login">Login Here</a></p>
             </div>
           </form>

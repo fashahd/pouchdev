@@ -15,6 +15,7 @@
 
           <form class="login100-form validate-form" id="login">
             <span class="login100-form-title">Dashboard Login</span>
+            <span class="regis-error" id="errormsg"></span>
             <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
               <input class="input100" type="text" name="email" placeholder="Email" required>
               <span class="focus-input100"></span>
@@ -31,7 +32,7 @@
               </span>
             </div>
 
-            <div class="container-login100-form-btn">
+            <div class="container-login100-form-btn" id="btnlogin">
               <button class="login100-form-btn" type="submit">Login</button>
             </div>
 

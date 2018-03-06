@@ -2,6 +2,11 @@
 	class ModelAuth extends CI_Model {
 
         function createUser($email,$password,$name,$phone,$business_name,$business_email){
+            $sql    = "SELECT * FROM pouch_masteremployeecredential where email = ?";
+            $query  = $this->db->query($sql, array($email));
+            if($query->num_rows()>0){
+                return json_encode(array("status"=>401,"keterangan"=>" Try again, make sure your email unique"));
+            }
             $userID     = $this->createUserID();
             $companyID  = $this->createCompanyID();
             $permission = $this->getPermission();
@@ -46,7 +51,7 @@
             } else {
                 //if everything went right, commit the data to the database
                 $this->db->trans_commit();
-                return json_encode(array("status"=>200,"keterangan"=>"Pendaftaran Berhasil"));
+                return json_encode(array("status"=>200,"keterangan"=>"Create account successfull"));
             }
         }
 

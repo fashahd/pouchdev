@@ -4,7 +4,7 @@ $('#login').submit(function(event) {
     event.preventDefault();
 
     var form = $('#login');	
-    $("#loginbutton").html('<span class="btn waves-effect waves-light col s12">Loading....</span>');
+    $("#btnlogin").html('<span class="login100-form-btn" type="submit">Loading....</span>');
 
 	$.ajax({
 		type : 'POST',
@@ -18,9 +18,8 @@ $('#login').submit(function(event) {
 				window.location.href=toUrl+"/dashboard/cash";
 				return;
 			}else{
-				swal("Ooopps!", "Password Or Email is Wrong", "warning");
-				$("#loginbutton").html('<button class="btn waves-effect waves-light col s12">Login</button>');
-				return;
+                $("btnlogin").html('<button class="login100-form-btn" type="submit">Login</button>');
+                $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Email not registered</p>');
 			}
 		},error: function(xhr, ajaxOptions, thrownError){            
 			alert(xhr.responseText);
@@ -33,7 +32,7 @@ $('#regis').submit(function(event) {
     event.preventDefault();
 
     var form = $('#regis');	
-    $("#register").html('<span class="waves-effect waves-light btn gradient-45deg-light-blue-cyan box-shadow col s12">Loading....</span>');
+    $("#btnregist").html('<span class="login100-form-btn" type="submit">Loading....</span>');
 
 	$.ajax({
 		type : 'POST',
@@ -42,21 +41,14 @@ $('#regis').submit(function(event) {
 		dataType: "json",
 		success: function(data){
 			if(data.status == 200){
-				swal({    
-					title: "Good Job !",
-					text: "Registration Success",
-					type: "success",
-					closeOnConfirm: false },
-					function(){
-					window.location.href=toUrl+"/auth/login";
-				});               
+				window.location.href=toUrl+"/auth/login";
             }else{
-                swal("Ooopps!", "Try again, make sure your username unique", "error");
-                $("#register").html('<button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan box-shadow col s12">Register Now</button>');
+                $("btnregist").html('<button class="login100-form-btn" type="submit">Create Account</button>');
+                $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Email was registered, make sure your email unique</p>');
             }
 		},error: function(xhr, ajaxOptions, thrownError){            
 			alert(xhr.responseText);
-			$("#register").html('<button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan box-shadow col s12">Register Now</button>');
+			$("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Try again, make sure your connection is strong</p>');
 		}
 	});
 });
