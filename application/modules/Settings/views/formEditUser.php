@@ -3,7 +3,7 @@
     $retPermission = "";
     if($permission){
         foreach($permission as $row){
-            $retPermission .= "<i class='material-icons'>$row->permission_icon</i>";
+            $retPermission .= "<i style='font-size:16pt;margin-right:10px' class='$row->permission_icon'></i> ";
             $arrpermission[$row->permission_id] = $row->permission_id;
         }
     }
@@ -15,64 +15,65 @@
             }else{
                 $chk = "";
             }
-            $retListPermission .= "
-                <li>
-                    <div class='collapsible-header'>
-                        <input $chk type='checkbox' name='permission[]' id='pemr_$key->permission_id' value='$key->permission_id'/>
-                        <label for='pemr_$key->permission_id'>
-                        <i class='material-icons left'>$key->permission_icon</i>
-                        $key->permission_name
-                    </div>
-                    <div class='collapsible-body'>
-                        <p>$key->permission_ket</p>
-                    </div>
-                </li>
-            ";
+            $retListPermission .= '
+        
+			<tr class="active border-double">
+				<td><input '.$chk.' type="checkbox" name="permission[]" id="pemr_'.$key->permission_id.'" value="'.$key->permission_id.'"/></td>
+				<td>
+					<div class="media-left media-middle">
+						<a href="#"><i class="'.$key->permission_icon.'"></i></a>
+					</div>
+					<div class="media-left">
+						<div class=""><a href="#" class="text-default text-semibold">'.$key->permission_name.'</a></div>
+						<div class="text-muted text-size-small">
+							'.$key->permission_ket.'
+						</div>
+					</div>
+				</td>
+			</tr>
+			';
         }
     }
 ?>
-
-<div class="col s12 m12 l6">
-    <div class="card-panel">
-        <div class="row">
-            <h4 class="header2">User Detail Information</h4>
-            <table class="bordered">
-                <tbody>
-                    <tr></tr>
-                    <tr>
-                        <td>Full Name</td>
-                        <td><?=$fullName?></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td><?=$email?></td>
-                    </tr>
-                    <tr>
-                        <td>Permission</td>
-                        <td><?=$retPermission?></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="col s12 m12 l6">
+<div class="row">
     <form class="col s12" id="updateuser">
-        <div class="row">
-            <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
-                <li>
-                    <div class='collapsible-header'>
-                        <h4 class="header2">Edit Permission</h4>
-                    </div>
-                </li>
-                <?=$retListPermission?>
-                <li>
-                    <div class='collapsible-header'>
-                        <button class='btn blue' type='submit'>Save</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
+	<div class="col-md-12">
+		<div class="col-md-6">
+			<div class="table-responsive">
+					<table class="table">
+					<tbody>
+						<tr><td colspan="2">Edit User</td></tr>
+						<tr>
+							<td>Full Name</td>
+							<td><?=$fullName?></td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td><?=$email?></td>
+						</tr>
+						<tr>
+							<td>Permission</td>
+							<td><?=$retPermission?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="table-responsive">
+				<table class="table text-nowrap">
+					<colgroup><col width="2%"></colgroup>
+					<tbody>
+						<tr><td colspan="2">Edit Permission</td></tr>
+						<?=$retListPermission?>
+						<tr>
+							<td><button class='btn btn-primary' type='submit'>Save</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
     </form>
 </div>
 

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Disbursements extends MX_Controller {
+class Batch extends MX_Controller {
 
 	function __construct()
 	{
@@ -51,7 +51,7 @@ class Disbursements extends MX_Controller {
 		}
 		$data["date"]	= date("d/m/Y");
 		$data["date2"]	= date("d/m/Y");
-		$data["module"] = "Disbursements";
+		$data["module"] = "Batch Disbursements";
 		$data["tab"]	= $tab;
 		$data["content"] = $content;
 		$data["email"]	= $this->session->userdata("sessEmail");

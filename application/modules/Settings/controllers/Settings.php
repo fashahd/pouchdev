@@ -21,7 +21,7 @@ class Settings extends MX_Controller {
 		}else{
 			$tabSetting 	= $this->session->userdata("sessSettings");
 		}
-		$data["module"] = "Settings";
+		$data["module"] = "Account Settings";
 		$data["userID"]	= $this->session->userdata("userID");
 		$data["tabSetting"] = $this->tabSetting($tabSetting);
 		$data["tab"]	= $tabSetting;
@@ -150,10 +150,25 @@ class Settings extends MX_Controller {
 		$permission	= $_POST["permission"];
 		$exist 		= $this->ModelSetting->checkUserExist($email);
 		if($exist == "exist"){
+			$sql 	= "UPDATE pouch_masteremployeecredential SET status = 'active' WHERE email = ?";
+			$query	= $this->db->query($sql,array($email));
 			$return 	= array(
-				"status"		=> 301,
-				"keterangan"	=> "User Existed"
+				"status"		=> 200,
+				"keterangan"	=> "User Existed, But Activated"
 			);
+			$sql = "SELECT userID FROM pouch_masteremployeecredential WHERE email = ?";
+			$query  = $this->db->query($sql,$email);
+			$row = $query->row();
+			$userID = $row->userID;
+			if(count($_POST["permission"])>0){
+                for($i = 0; $i<count($_POST["permission"]);$i++){
+                    $dataPermission = array(
+                        'userID' => $userID,
+                        'permission_id' => $_POST["permission"][$i]
+                    );
+                    $this->db->insert('pouch_roleuser', $dataPermission);
+                }
+            } 
 			
 			echo json_encode($return);
 			return;
@@ -214,6 +229,7 @@ class Settings extends MX_Controller {
 	function deleteUser(){
 		if(isset($_POST["userID"])){
 			$sql 	= "UPDATE pouch_masteremployeecredential set status= 'deactive' WHERE userID = '$_POST[userID]'";
+			$sql2  	= "DELETE FROM pouch_roleuser WHERE userID = '$_POST[userID]'";
 			$query 	= $this->db->query($sql);
 			if($query){
 				echo "sukses";

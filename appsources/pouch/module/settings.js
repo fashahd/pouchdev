@@ -322,12 +322,13 @@ function isNumberKey(evt)
 }
 
 function loader(){
-	var loading = '<div class="progress"><div class="indeterminate"></div></div>';
-	return loading;
+	// var light_6 = document.getElementById("settings");
+	$("#settings").html('<div style="text-align:center">'
+	+'loading......</div>');
 }
 
 $("#users").click(function(){
-	$("#settings").html(loader());
+	loader();
 
 	$.ajax({
 		type : 'POST',
@@ -341,7 +342,7 @@ $("#users").click(function(){
 })
 
 $("#billing").click(function(){
-	$("#settings").html(loader());
+	loader();
 
 	$.ajax({
 		type : 'POST',
@@ -355,7 +356,7 @@ $("#billing").click(function(){
 })
 
 $("#withdraw").click(function(){
-	$("#settings").html(loader());
+	loader();
 
 	$.ajax({
 		type : 'POST',
@@ -369,7 +370,7 @@ $("#withdraw").click(function(){
 })
 
 $("#general").click(function(){
-	$("#settings").html(loader());
+	loader();
 
 	$.ajax({
 		type : 'POST',
@@ -383,7 +384,7 @@ $("#general").click(function(){
 })
 
 $("#developer").click(function(){
-	$("#settings").html(loader());
+	loader();
 
 	$.ajax({
 		type : 'POST',
@@ -405,7 +406,7 @@ function addBankWithdraw(){
 }
 
 function editUser(userID){
-	$("#settings").html(loader());
+	loader();
 	$.ajax({
 		type : 'POST',
 		url  : toUrl+"/settings/formEditUser",

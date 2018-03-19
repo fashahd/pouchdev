@@ -4,45 +4,63 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Layout {
 
     public function headercontent($module = null){
-        $ret = "
+        $ret = '
             <head>
-                <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-                <!-- Meta, title, CSS, favicons, etc. -->
-                <meta charset='utf-8'>
-                <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-                <meta name='viewport' content='width=device-width, initial-scale=1'><!-- Favicons-->
-                <meta name='description' content='My Poch adalah perusahaan yang bergerak di bidang payment channel dan payment gateway yang mengutamakan kemudahan, keamanan, kecepatan, dan fleksibilitas dalam setiap transaksi'>
-                <meta name='keywords' content='My Pouch, pouch, payment gateway, payment channel'>
-                <link rel='icon' href='".base_url()."appsources/mypouch-favicon.png' sizes='32x32'>
-                <!-- Favicons-->
-                <link rel='apple-touch-icon-precomposed' href='".base_url()."appsources/mypouch-favicon.png'>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>'.$module.' | My Pouch</title>
+                <link rel="shortcut icon" href="'.base_url().'appsources/mypouch-favicon.png" type="image/x-icon" />
             
-
-                <title>My Pouch | $module</title>
-
-                
-                ".link_tag('appsources/css/themes/semi-dark-menu/materialize.css')."
-                
-                ".link_tag('appsources/css/themes/semi-dark-menu/style.css')."
-                
-                ".link_tag('appsources/css/custom/custom.css')."
-
-                ".link_tag('appsources/vendors/noUiSlider/nouislider.css')."
-
-                ".link_tag('appsources/vendors/prism/prism.css')."
-                
-                ".link_tag('appsources/vendors/perfect-scrollbar/perfect-scrollbar.css')."
-                
-                ".link_tag('appsources/vendors/jvectormap/jquery-jvectormap.css')."
-                
-                ".link_tag('appsources/vendors/dropify/css/dropify.min.css')."
-                ".link_tag('appsources/vendors/sweetalert/dist/sweetalert.css')."
-
-                ".link_tag('appsources/vendors/flag-icon/css/flag-icon.min.css')."
-                ".link_tag('appsources/vendors/data-tables/css/jquery.dataTables.min.css')."
-
-            </head>
-        ";
+                <!-- Global stylesheets -->
+                <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+                <link href="'.base_url().'appsources/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+                <link href="'.base_url().'appsources/css/bootstrap.css" rel="stylesheet" type="text/css">
+                <link href="'.base_url().'appsources/css/core.css" rel="stylesheet" type="text/css">
+                <link href="'.base_url().'appsources/css/components.css" rel="stylesheet" type="text/css">
+                <link href="'.base_url().'appsources/css/colors.css" rel="stylesheet" type="text/css">
+                <link href="'.base_url().'appsources/css/custom/custom.css" rel="stylesheet" type="text/css">
+                '.link_tag("appsources/sweetalert/dist/sweetalert.css").'
+                '.link_tag("appsources/css/custom/custom.css").'
+                <!-- /global stylesheets -->
+            
+                <!-- Core JS files -->
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/loaders/pace.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/core/libraries/jquery.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/core/libraries/bootstrap.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/loaders/blockui.min.js"></script>
+                <!-- /core JS files -->
+            
+                <!-- Theme JS files -->
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/visualization/d3/d3.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/visualization/d3/d3_tooltip.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/styling/switchery.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/styling/uniform.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/ui/moment/moment.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/pickers/daterangepicker.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/pickers/anytime.min.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/pickers/pickadate/picker.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/pickers/pickadate/picker.date.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/pickers/pickadate/picker.time.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/pickers/pickadate/legacy.js"></script>
+				<script type="text/javascript" src="'.base_url().'appsources/js/pages/components_popups.js"></script>
+				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/notifications/pnotify.min.js"></script>
+				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/selects/select2.min.js"></script>
+				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/styling/uniform.min.js"></script>
+				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/loaders/progressbar.min.js"></script>
+            
+                <script type="text/javascript" src="'.base_url().'appsources/js/core/app.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/pages/dashboard.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/pages/picker_date.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/pages/components_modals.js"></script>
+				<script type="text/javascript" src="'.base_url().'appsources/js/pages/components_notifications_pnotify.js"></script>
+				<script type="text/javascript" src="'.base_url().'appsources/js/pages/form_layouts.js"></script>
+            
+                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/ui/ripple.min.js"></script>
+                <!-- /theme JS files -->
+            
+            </head>';
 
         return $ret;
     }
@@ -120,17 +138,17 @@ class Layout {
 
     public function loadjscontent(){
         $ret = "
-            <script src='".base_url()."appsources/vendors/jquery-3.2.1.min.js'></script>
+            <script src='".base_url()."appsources/jquery-3.2.1.min.js'></script>
             <script src='".base_url()."appsources/js/materialize.min.js'></script>
-            <script src='".base_url()."appsources/vendors/prism/prism.js'></script>
-            <script src='".base_url()."appsources/vendors/perfect-scrollbar/perfect-scrollbar.min.js'></script>
+            <script src='".base_url()."appsources/prism/prism.js'></script>
+            <script src='".base_url()."appsources/perfect-scrollbar/perfect-scrollbar.min.js'></script>
             <script src='".base_url()."appsources/js/plugins.js'></script>
             <script src='".base_url()."appsources/js/custom-script.js'></script> 
             <script src='".base_url()."appsources/js/jquery.form.js'></script> 
-            <script src='".base_url()."appsources/vendors/data-tables/js/jquery.dataTables.min.js'></script>
+            <script src='".base_url()."appsources/data-tables/js/jquery.dataTables.min.js'></script>
             <script src='".base_url()."appsources/js/scripts/data-tables.js'></script>
             <script src='".base_url()."appsources/js/scripts/advanced-ui-modals.js'></script>
-            <script src='".base_url()."appsources/vendors/sweetalert/dist/sweetalert.min.js'></script>
+            <script src='".base_url()."appsources/sweetalert/dist/sweetalert.min.js'></script>
             
             <script src='".base_url()."appsources/pouch/default.js'></script>      
             <script src='".base_url()."appsources/pouch/module/batch.js'></script>  
@@ -210,7 +228,7 @@ class Layout {
     }
     
     public function logo_white(){
-        $logo = '<img src="'.base_url().'appsources/mypouch.png" width="250px"/>';
+        $logo = '<img src="'.base_url().'appsources/mypouch-white.png"/>';
         return $logo;
     }
     

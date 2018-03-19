@@ -236,14 +236,14 @@
                     $retpermit = "";
                     if($query->num_rows()>0){
                         foreach($query->result() as $key){
-                            $retpermit .= "<i class='material-icons'>$key->permission_icon</i>";
+                            $retpermit .= "<i style='font-size:16pt;margin-right:10px' class='$key->permission_icon' title='$key->permission_name'></i> ";
                         }
                     }
                     $btnaction = "";
                     if($userID != $row->userID){
                         $btnaction = "
-                        <a class='btn-flat waves-effect blue-text'onclick='editUser(\"$row->userID\")'><i class='material-icons left'>border_color</i>Edit</a>
-                        <a class='btn-flat waves-effect red-text'onclick='deleteuser(\"$row->userID\")'><i class='material-icons left'>highlight_off</i>Delete</a>";
+                        <a class='btn btn-primary'onclick='editUser(\"$row->userID\")'><i class='icon-pencil3'></i> Edit</a>
+                        <a class='btn btn-danger' onclick='deleteuser(\"$row->userID\")'><i class='icon-eraser2'></i> Delete</a>";
                     }
                     $ret .= "<tr><td>$row->fullName</td><td>$row->email</td><td>$retpermit</td><td>$btnaction</td></tr>";
                 }
@@ -255,28 +255,25 @@
         function getTabUsers($userID){
             $dataUsers = $this->getDataUsers();
             $ret = '
-            <div class="row">
-                <div class="col s12 m12 l12">
-                    <div class="card-panel">
-                        <span class="btn blue right" onClick="addUser()"><i class="material-icons left">add</i>Create User</span><br>
-                        <div class="row">
-                            <div class="col l12">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <th>Permissions</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        '.$dataUsers.'
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+            <div class="panel-heading">
+                <h5 class="panel-title">Users Settings</h5>
+                <a data-toggle="modal"  data-target="#modal_users" type="button" class="btn btn-primary btn-labeled btn-sm pull-right"><b><i class="icon-user-plus"></i></b> Create Account</a></span>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-framed">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Permissions</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            '.$dataUsers.'
+                        </tbody>
+                    </table>
                 </div>
             </div>
             ';
@@ -286,75 +283,110 @@
 
         function getTabBilling($userID){
             $ret = '
-            <div id="work-collections" class="seaction">
-                <div class="row">
-                    <div class="col s12 m12 l6">
-                        <div class="col s12 m12 l12">
-                            <ul id="issues-collection" class="collection z-depth-1">
-                                <li class="collection-item">
-                                    <h5 class="collection-header">Billing Balance</h5>
-                                </li>
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s7">
-                                            <h4 class="collections-content">Rp. 0 </h4>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col s12 m12 l6">
-                        <div class="col s12 m12 l12">
-                            <ul id="issues-collection" class="collection z-depth-1">
-                                <li class="collection-item">
-                                    <h5 class="collection-header">Rate Card</h5>
-                                </li>
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s7">
-                                            <p class="collections-title">Virtual Account</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s7">
-                                            <p class="collections-content">Price </p>
-                                        </div>
-                                        <div class="col s2">
-                                            
-                                        </div>
-                                        <div class="col s3">
-                                            <p class="collections-content">Rp. 3.500 </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s7">
-                                            <p class="collections-title">Disbursements</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s7">
-                                            <p class="collections-content">Price </p>
-                                        </div>
-                                        <div class="col s2">
-                                            
-                                        </div>
-                                        <div class="col s3">
-                                            <p class="collections-content">Rp. 3.500 </p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="">
+				<div class="col-lg-6">
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<h5 class="panel-title">Billing</h5>
+						</div>
+
+						<div class="panel panel-body">
+							<div class="row">
+								<h2 class="text-semibold panel-title" style="padding-left:20px">
+									<i class="icon-wallet icon-2x text-info position-left"></i>
+									IDR 0
+								</h2>
+								<h4 class="text-semibold text-muted" style="padding-left:20px">
+									Billing Balance
+								</h4>
+							</div>
+							<hr>
+							<div class="row">
+								<h2 class="text-semibold panel-title" style="padding-left:20px">
+									<i class=" icon-credit-card icon-2x text-warning position-left"></i>
+									IDR 0
+								</h2>
+								<h4 class="text-semibold text-muted" style="padding-left:20px">
+									Outstanding Fees Amount
+								</h4>
+							</div>
+							<div class="row">
+								<div class="panel panel-body">
+								<ul class="media-list">
+									<li class="media stack-media-on-mobile">
+			        					<div class="media-left">
+											<div class="thumb">
+												<a href="#">
+													<img style="width:100px"src="'.base_url().'assets/logo_company/logo_mandiri_2016.png" class="img-responsive img-rounded media-preview" alt="">
+												</a>
+											</div>
+										</div>
+			        					<div class="media-body">
+											<table class="table">
+												<tr><td>Payment method</td><td>MANDIRI Virtual Account </td></tr>
+												<tr><td>Account Number</td><td>886082002290</td></tr>
+												<tr><td><button class="btn btn-primary">How To Pay</button></td></tr>
+											</table>
+										</div>
+									</li>
+								</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<h5 class="panel-title">Rate Card</h5>
+						</div>
+
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Disbursements</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Price</td>
+											<td>IDR 4.500</td>
+										</tr>
+									</tbody>
+								</table>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Virtual accounts</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Price</td>
+											<td>IDR 4.500</td>
+										</tr>
+									</tbody>
+								</table>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Name validators</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Price</td>
+											<td>IDR 0</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
             ';
 
             return $ret;
@@ -378,51 +410,83 @@
             $withdrawlist   = $this->getWithdrawList($companyID);
             $dataRet = '';
             if($withdrawlist){
+				$optdest = "";
+				$dataRet .= '
+					<table class="table">
+					<thead>
+						<tr>
+							<td>Bank</td>
+							<td>Account number</td>
+							<td>Account name</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>';
                 foreach($withdrawlist as $row){
                     $account_number = $this->aes->decrypt_aes256($row->account_number);
-                    $dataRet .= "<tr><td>$row->bank_name</td><td>$account_number</td><td>$row->account_name</td><td><button onclick='deletewithdrawbank(\"$row->withdraw_bank_id\")' class='btn red'>Delete</button><td/></tr>";
-                }
-            }
+                    $dataRet .= "<tr><td>$row->bank_name</td><td>$account_number</td><td>$row->account_name</td><td><button onclick='deletewithdrawbank(\"$row->withdraw_bank_id\")' class='btn btn-danger'><i class=' icon-trash'></i></button><td/></tr>";
+					$optdest .= "<option value='$account_number'>$account_number - $row->account_name</option>";
+				}
+				$dataRet .= '			
+						</tbody>
+					</table>
+				';
+            }else{
+				$dataRet = "<table><tr><td>There no bank account</td></tr></table>";
+			}
             $ret = '
-            <div id="work-collections" class="seaction">
-                <div class="row">
-                    <div class="col s12 m12 l8">
-                        <div class="col s12 m12 l12">
-                            <ul id="issues-collection" class="collection z-depth-1">
-                                <li class="collection-item">
-                                    <h5 class="collection-header left">Bank accounts</h5>
-                                    <span class="btn blue right" onClick="addBankWithdraw()"><i class="material-icons left">add</i>Add Bank</span>
-                                    <br>
-                                    <br>
-                                </li>
-                                <li class="collection-item">
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <td>Bank</td>
-                                                        <td>Account number</td>
-                                                        <td>Account name</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    '.$dataRet.'
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col s12 m12 l4">
-                        <div class="col s12 m12 l12">
-                        </div>
-                    </div>
-                </div>
+			<div class="panel-heading">
+                <h5 class="panel-title">Withdraw Settings</h5>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-8">
+					<!-- Basic layout-->
+							<div class="panel-heading">
+								<h5 class="panel-title">Bank Account</h5><a data-toggle="modal"  data-target="#modal_bank" type="button" class="btn btn-primary btn-labeled btn-sm pull-right"><b><i class="icon-wallet"></i></b> Add Bank Account</a></span>
+							</div>
+						<div class="panel panel-flat">
+							<div class="panel-body">
+								<div class="table-responsive">
+								'.$dataRet.'
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-md-4">
+					<!-- Basic layout-->
+						<div class="panel-heading">
+							<h5 class="panel-title">Withdraw</h5>
+						</div>
+						<div class="panel panel-flat">
+							<div class="panel-body">
+							<p>Available cash for withdrawal</p>
+							<h4>IDR 0</h4>
+							<form>
+								<div class="form-group">
+									<label>Amount:</label>
+									<input required onkeypress="return isNumberKey(event)" type="text" class="form-control" placeholder="Amount">
+									<span id="notepin"></span>
+								</div>
+								<div class="form-group">
+									<label>Destination:</label>
+									<select required name="account" id="account" data-placeholder="Destination" class="select">\
+										<option></option>
+										'.$optdest.'
+									</select>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-primary">Withdraw</button>
+								</div>
+							</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>
+				$("#account").select2();
+			</script>
             ';
 
             return $ret;
@@ -436,80 +500,114 @@
             $companyaccount = $this->getCompanyAccountInformation($company_id);
             list($company_account_name,$company_account_number)=$companyaccount;
             $ret = '
+            <div class="panel-heading">
+                <h5 class="panel-title">General Settings</h5>
+            </div>
             <div class="row">
-                <div class="col s12 m12 l4">
-                    <div class="card-panel">
-                        <h4 class="header2">Account Information</h4><hr>
-                        <div class="row">
-                            <form class="col s12" id="account_information">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                    <p>Full Name</p>
-                                        <input placeholder="Full Name" name="fullname" id="fullname" type="text" value="'.$fullName.'">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <!-- Basic layout-->
+                        <form  id="account_information">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Account Information</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label>Full Name:</label>
+                                        <input placeholder="Full Name" name="fullname" id="fullname" type="text" value="'.$fullName.'" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input placeholder="example@domain.com" name="email" id="email" type="email" value="'.$email.'" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone Number:</label>
+                                        <input placeholder="Phone Number" name="phone" id="phone" type="text" value="'.$phoneNumber.'" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary">Save</button>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <p>Email</p>
-                                        <input placeholder="example@domain.com" name="email" id="email" type="email" value="'.$email.'">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- Basic layout-->
+                        <form  id="business_information">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">Business Information</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label>Bussiness Name:</label>
+                                        <input placeholder="Business Name" name="business_name" id="business_name" type="text" value="'.$company_name.'" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bussiness Email:</label>
+                                        <input placeholder="example@domain.com" name="business_email" id="business_email" type="email" value="'.$company_email.'" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bussiness Address:</label>
+                                        <input placeholder="Business Address" name="address" id="address" type="text" value="'.$company_address.'" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary">Save</button>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <p>Phone Number</p>
-                                        <input placeholder="Phone Number" name="phone" id="phone" type="text" value="'.$phoneNumber.'">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- Basic layout-->
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Top Up Balance</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="thumbnail">
+                                    <div class="thumb">
+                                        <img src="'.base_url().'assets/logo_company/logo_mandiri_2016.png" alt="" style="width:250px">
+                                        <div class="caption-overflow">
+                                            <span>
+                                                <a href="'.base_url().'assets/logo_company/logo_mandiri_2016.png" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
+                                                <a href="#" class="btn border-white text-white btn-flat btn-icon btn-rounded ml-5"><i class="icon-link2"></i></a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                    <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                    </div>
-                                </div>
-                            </form>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td>Payment Method</td>
+                                        <td>: Virtual Account</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Account Number</td>
+                                        <td>: '.$company_account_number.'</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Account Name</td>
+                                        <td>: '.$company_account_name.'</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center"><button class="btn btn-primary" data-toggle="modal" data-target="#modal_how_to_pay">How to Pay</button></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m12 l4">
-                    <div class="card-panel">
-                        <h4 class="header2">Business Information</h4><hr>
-                        <div class="row">
-                            <form class="col s12" id="business_information">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <p>Bussiness Name</p>
-                                        <input placeholder="Business Name" id="business_name" name="business_name" type="text" value="'.$company_name.'">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <p>Bussiness Email</p>
-                                        <input placeholder="example@domain.com" id="business_email" name="business_email" type="email" value="'.$company_email.'">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <p>Bussiness Address</p>
-                                        <input placeholder="Business Address" id="address" name="address" type="text" value="'.$company_address.'">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                    <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m12 l4">
-                    <div class="card-panel">
-                        <h4 class="header2">Business Logo</h4><hr>
-                        <div class="row">
-                            <div class="input-field col s12">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <!-- Basic layout-->
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Business Logo</h5>
+                            </div>
+                            <div class="panel-body">
                                 <figure class="card-profile-image">
                                     <div id="imgContainer">
                                         <form enctype="multipart/form-data" action="settings/uploadlogo" method="post" name="image_upload_form" id="image_upload_form">
@@ -526,55 +624,28 @@
                                         </form>
                                     </div>
                                 </figure>
+                                <hr>
+                                <h6>Upload Notes : <br> Smaller than 512 Kb <br> Size 128px by 128px </h6>
                             </div>
                         </div>
-                        <p>Upload Notes : <br> Smaller than 512 Kb <br> Size 128px by 128px </p>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12 m12 l4">
-                    <div class="card-panel">
-                        <h4 class="header2">Top Up Balance</h4><hr>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <figure class="card-profile-image">
-                                    <div id="imgContainer">
-                                        <img src="'.base_url().'assets/logo_company/logo_mandiri_2016.png" alt="" class="responsive-img activator">
+                    <div class="col-md-4">
+                        <!-- Basic layout-->
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Account Security</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align:center; margin-bottom:10px">
+                                        <button class="btn btn-primary amber darken-4" data-toggle="modal" data-target="#modal_small1">Change Password</button>
                                     </div>
-                                </figure>
-                            </div>
-                        </div>
-                        <table>
-                            <tr>
-                                <td>Payment Method</td>
-                                <td>: Virtual Account</td>
-                            </tr>
-                            <tr>
-                                <td>Account Number</td>
-                                <td>: '.$company_account_number.'</td>
-                            </tr>
-                            <tr>
-                                <td>Account Name</td>
-                                <td>: '.$company_account_name.'</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="center"><button class="btn cyan">How to Pay</button></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="col s12 m12 l4">
-                    <div class="card-panel">
-                        <h4 class="header2">Security</h4><hr>
-                        <div class="row">
-                            <div class="input-field col s12 center">
-                                <button class="btn btn-primary amber darken-4" onClick="changePassword()">Change Password</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12 center">
-                            <button class="btn btn-primary amber darken-4" onClick="changePIN()">Change PIN</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align:center">
+                                        <button class="btn btn-primary amber darken-4" data-toggle="modal" data-target="#modal_small">Change PIN</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -595,46 +666,118 @@
             $apidev = $this->getApiDev($userID,$company_id,"");
             list($public_key_dev,$secret_key_dev)=$apidev;
             $ret = '
-            <div class="row">
-                <div class="col s12 m12 l4">
-                    <div class="card-panel">
-                        <h4 class="header2">Development Keys</h4><hr>
-                        <div class="row">
-                            <form class="col s12" id="account_information">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <span>Public Key</span>
-                                        <input disabled id="public_key_development" type="text" value="'.$public_key_dev.'">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <span>Secret Key</span>
-                                        <input disabled id="secret_key_development" type="text" value="'.$secret_key_dev.'">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                    <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+			<div class="panel-heading">
+                <h5 class="panel-title">API Settings</h5>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+					<!-- Basic layout-->
+						<div class="panel panel-flat">
+							<div class="panel-heading">
+								<h5 class="panel-title">Development Keys</h5>
+							</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<label>Public Key:</label>
+									<input class="form-control"  disabled id="public_key_development" type="text" value="'.$public_key_dev.'">
+								</div>
+								<div class="form-group tooltips">
+									<button class="btn btn-primary" id="user_cre_dev" data-popup="tooltip" title="Copy to Clipboard" >Copy</button>
+								</div>
+								<div class="form-group">
+									<label>Secret Key:</label>
+									<input class="form-control" disabled id="secret_key_development" type="text" value="'.$secret_key_dev.'">
+								</div>
+								<div class="form-group tooltips">
+									<button class="btn btn-primary" id="user_key_dev" data-popup="tooltip" title="Copy to Clipboard" >Copy</button>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-md-6">
+					<!-- Basic layout-->
+						<div class="panel panel-flat">
+							<div class="panel-heading">
+								<h5 class="panel-title">Live Keys</h5>
+							</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<label>User Credential:</label>
+									<input class="form-control"  disabled id="" type="text">
+								</div>
+								<div class="form-group">
+									<button class="btn btn-primary">Copy</button>
+								</div>
+								<div class="form-group">
+									<label>User Key:</label>
+									<input class="form-control" disabled id="" type="text">
+								</div>
+								<div class="form-group">
+									<button class="btn btn-primary" id="">Copy</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>				
+				$("#user_cre_dev").on("click",function() {
+					var text = $("#public_key_development").val();
+					// alert(text);
+					var textArea = document.createElement( "textarea" );
+					textArea.value = text;
+					document.body.appendChild( textArea );
+
+					textArea.select();
+
+					try {
+						var successful = document.execCommand( "copy" );
+						var msg = successful ? "successful" : "unsuccessful";
+						new PNotify({
+							title: "Copy Success",
+							text: "Public Key Was Copied",
+							addclass: "alert alert-info alert-styled-right",
+							type: "info"
+						});
+					} catch (err) {
+						console.log("Oops, unable to copy");
+					}
+					document.body.removeChild( textArea );
+				})
+				$("#user_key_dev").on("click",function() {
+					var text = $("#secret_key_development").val();
+					var textArea = document.createElement( "textarea" );
+					textArea.value = text;
+					document.body.appendChild( textArea );
+
+					textArea.select();
+
+					try {
+						var successful = document.execCommand( "copy" );
+						var msg = successful ? "successful" : "unsuccessful";
+						new PNotify({
+							title: "Copy Success",
+							text: "Secret Key Was Copied",
+							addclass: "alert alert-info alert-styled-right",
+							type: "info"
+						});
+					} catch (err) {
+						console.log("Oops, unable to copy");
+					}
+					document.body.removeChild( textArea );
+				})
+			</script>
            ';
 
            return $ret;
         }        
 
         function getApiDev($userID,$company_id,$password){
-            $shacompany_id  = $this->aes->encrypt_aes256($company_id);
-            $shauserID      = $this->aes->encrypt_aes256API($userID);
-            $public_key_dev = "pouch_dev_pub_".$shauserID;
-            $secret_key_dev = "pouch_dev_key_".$shacompany_id;
+            $public_key  = $this->aes->encrypt_aes256($company_id."_".$userID);
+            $secret_key  = $this->aes->encrypt_aes256API($company_id."_".$userID);
+            $public_key_dev = "pouch_dev_pub_".$public_key;
+            $secret_key_dev = "pouch_dev_secret_".$secret_key;
 
             return array($public_key_dev,$secret_key_dev);
         }

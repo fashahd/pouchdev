@@ -18,7 +18,7 @@ $('#login').submit(function(event) {
 				window.location.href=toUrl+"/dashboard/cash";
 				return;
 			}else{
-                $("btnlogin").html('<button class="login100-form-btn" type="submit">Login</button>');
+                $("#btnlogin").html('<button class="login100-form-btn" type="submit">Login</button>');
                 $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Email not registered</p>');
 			}
 		},error: function(xhr, ajaxOptions, thrownError){            

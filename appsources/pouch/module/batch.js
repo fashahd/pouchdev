@@ -1,24 +1,22 @@
 $("#deleteBatch").click(function(){
-	$('#modal3').modal('open');
+	$('#modal_small').modal('open');
 })
 
 $("#approveBatch").click(function(){
-	$('#modal4').modal('open');
+	$('#modal_small').modal('open');
 })
 
 $('#setDelete').submit(function(event) {
-    event.preventDefault();
+	event.preventDefault();
 
     var form = $('#setDelete');	
     // $("#register").html('<span class="waves-effect waves-light btn gradient-45deg-light-blue-cyan box-shadow col s12">Loading....</span>');
 	$.ajax({
 		type : 'POST',
-		url  : toUrl+"/disbursements/checkPin",
+		url  : toUrl+"/batch/checkPin",
 		data : form.serialize(),
 		dataType: "json",
 		success: function(data){
-			// alert(JSON.stringify(data));
-			// return;
 			if(data.status == "match"){
 				SetDeleteBatch();        
 			}
@@ -41,7 +39,7 @@ $('#setApprove').submit(function(event) {
 
 	$.ajax({
 		type : 'POST',
-		url  : toUrl+"/disbursements/checkPin",
+		url  : toUrl+"/batch/checkPin",
 		data : form.serialize(),
 		dataType: "json",
 		success: function(data){
@@ -72,7 +70,7 @@ function SetDeleteBatch(){
 
 	$.ajax({
 		type : 'POST',
-		url  : toUrl+"/disbursements/deleteBatch",
+		url  : toUrl+"/batch/deleteBatch",
 		data : {val:val},
 		dataType: "json",
 		success: function(data){
@@ -112,7 +110,7 @@ function SetApproveBatch(){
 
 	$.ajax({
 		type : 'POST',
-		url  : toUrl+"/disbursements/approveBatch",
+		url  : toUrl+"/batch/approveBatch",
 		data : {val:val},
 		dataType: "json",
 		success: function(data){
@@ -149,7 +147,7 @@ function SetApproveBatch(){
 function showDetailBatch(transaction_id){
 	$.ajax({
 		type : 'POST',
-		url  : toUrl+"/disbursements/detailBatch",
+		url  : toUrl+"/batch/detailBatch",
 		data : {transaction_id:transaction_id},
 		success: function(data){
 			$("#batch_disbursement").html(data);
@@ -163,7 +161,7 @@ function showDetailBatch(transaction_id){
 function showDownloadTemplate(){
     $.ajax({
 		type : 'POST',
-		url  : toUrl+"/disbursements/uploadform",
+		url  : toUrl+"/batch/uploadform",
 		// data : form.serialize(),
 		// dataType: "json",
 		success: function(data){
@@ -182,7 +180,7 @@ function setTab(type){
 	}
     $.ajax({
 		type : 'POST',
-		url  : toUrl+"/disbursements/setTab",
+		url  : toUrl+"/batch/setTab",
 		data : {type:type},
 		dataType: "json",
 		success: function(data){

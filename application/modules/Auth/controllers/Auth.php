@@ -70,6 +70,7 @@ class Auth extends MX_Controller {
 		if($data["status"] == "sukses"){			
 			$this->session->set_userdata("sessUserID",$data["userID"]);
 			$this->session->set_userdata("sessEmail",$data["email"]);
+			$this->session->set_userdata("sessFullNam",$data["fullName"]);
 			$this->session->set_userdata("sessCompanyID",$data["company_id"]);
 			$this->session->set_userdata("sessCompanyLogo",$data["company_logo"]);
 			$this->session->set_userdata("sessCompanyName",$data["company_name"]);
@@ -83,6 +84,6 @@ class Auth extends MX_Controller {
 		$this->session->unset_userdata("sessUSerID");
 		$this->session->unset_userdata("sessEmail");
 
-		header("location:auth/login");
+		header("location:".base_url()."auth/login");
 	}
 }

@@ -120,7 +120,7 @@
             $data = "";
             if($query->num_rows()>0){
                 foreach($query->result() as $row){
-                    if($row->status == "pending"){
+                    if($row->status == "active"){
                         $status = "Need Approval";
                     }else{
                         $status = "$row->status";
@@ -128,7 +128,7 @@
                     $account_number = $this->aes->decrypt_aes256($row->account_number);
                     $data .= "
                         <tr>
-                        <td><span class='btn gradient-45deg-red-pink' style='font-size:9pt'>$status</span></td>
+                        <td><span class='btn btn-primary' style='font-size:9pt'>$status</span></td>
                         <td>$row->amount</td>
                         <td>$row->bank_code</td>
                         <td>$row->account_holder_name</td>
@@ -157,33 +157,42 @@
                 foreach($query->result() as $row){
                     $created_date = date("d M Y, H:i", strtotime($row->created_dttm));
                     $total  = number_format($row->total);
-                    if($row->status == "pending"){
+                    if($row->status == "active"){
                         $status = "Need Approval";
                     }else{
                         $status = "$row->status";
                     }
+					$transaction_id = $this->aes->encrypt_aes256API($row->transaction_id);
                     $data .= "
                         <tr>
-                        <td><input name='batch_disburse[]' type='checkbox' id='chck_$row->transaction_id' value='$row->transaction_id'/>
-                        <label for='chck_$row->transaction_id'></label></td>
+                        <td><input name='batch_disburse[]' type='checkbox' id='chck_$transaction_id' value='$transaction_id'/>
+                        <label for='chck_$transaction_id'></label></td>
                         <td>$row->reference</td>
                         <td>$created_date</td>
                         <td>$row->fullName</td>
                         <td>$row->jml_transaksi</td>
                         <td>$total</td>
-                        <td><button onClick='showDetailBatch(\"$row->transaction_id\")' class='btn gradient-45deg-red-pink' style='font-size:9pt'>$status</button></td></tr>
+                        <td><button onClick='showDetailBatch(\"$transaction_id\")' class='btn btn-primary' style='font-size:9pt'>$status</button></td></tr>
                     ";
                 }
 
                 $content = '
-                <div class="card border-radius-3">
-                    <div class="card-content center">
-                    <div id="table-datatables">
-                        <div class="row">
-                            <div class="col s12">
-                                <table id="" class="responsive-table display" cellspacing="0">
-                                    <thead>
-                                        <tr>
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-framed">
+                                <thead>
+                                    <tr>
                                         <th><input type="checkbox" onchange="checkAll(this)" id="all" /><label for="all"></label></th>
                                         <th>Reference</th>
                                         <th>Date Uploaded</th>
@@ -191,27 +200,26 @@
                                         <th>Qty Transaction</th>
                                         <th>Total</th>
                                         <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        '.$data.'
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    '.$data.'
+                                </tbody>
+                            </table>
                         </div>
-                    </div>                 
-                    </div>                 
-                </div>                 
+                    </div>
+                </div>              
                 ';
             }else{                
                 $content = '			
-                    <div class="card border-radius-3">
-                        <div class="card-content center">
-                        <i class="material-icons grey-text" style="font-size:100px">assignment</i>
-                        <h5 class="black-text">You do not have any disbursements to approve</h5>
-                        <p class="grey-text">Come back after your uploader has uploaded one :)</p>
-                        </div>
+                <div class="panel">
+                    <div class="panel-body text-center">
+                        <div class="icon-object border-success text-success"><i class="icon-stack-empty"></i></div>
+                        <h5 class="text-semibold">You do not have any disbursements to approve</h5>
+                        <p class="mb-15">Come back after your uploader has uploaded one :)</p>
+                        <a href="#" class="btn bg-success-400">Upload</a>
                     </div>
+                </div>
                 ';
             }
             return $content;
@@ -275,13 +283,13 @@
                 ';
             }else{                
                 $content = '			
-                    <div class="card border-radius-3">
-                        <div class="card-content center">
-                        <i class="material-icons grey-text" style="font-size:100px">assignment</i>
-                        <h5 class="black-text">You do not have any disbursements</h5>
-                        <p class="grey-text">Come back after your approved some batch :)</p>
-                        </div>
+                <div class="panel">
+                    <div class="panel-body text-center">
+                        <div class="icon-object border-success text-success"><i class="icon-stack-empty"></i></div>
+                        <h5 class="text-semibold">No batch disbursements found</h5>
+                        <p class="mb-15">We show batch by filter, try changing your filter</p>
                     </div>
+                </div>
                 ';
             }
             return $content;
