@@ -1,132 +1,153 @@
 
 <!-- Page header -->
 <div class="page-header page-header-default">
-  <div class="page-header-content">
-    <div class="page-title">
-      <h4><?=$module?></h4>
-    </div>
-    <div class="heading-elements">
-        <div class="col-md-6">
-        
-        </div>        
-    </div>
-  </div>
-  <div id="batch_disbursement" >
-  <div class="breadcrumb-line">
-    <div class="panel-flat">
-      <div class="panel-body">
-        <div class="tabbable col-lg-6">
-          <ul class="nav nav-tabs nav-tabs-bottom">
-            <?php 
-            if($tab == "need"){
-              echo '<li class="active"><a href="#needApprove" onClick="setTab(\'need\')" data-toggle="tab">Need Approval</a></li>
-              <li><a href="#approved" onClick="setTab(\'approved\')" data-toggle="tab">Approved</a></li>';
-            }else{
-              echo '<li><a href="#needApprove" onClick="setTab(\'need\')" data-toggle="tab">Need Approval</a></li>
-              <li class="active"><a href="#approved" onClick="setTab(\'approved\')" data-toggle="tab">Approved</a></li>';
-            }
-            ?>
-          </ul>
-        </div>
-        <div class="tabbale col-lg-6">
-          <div class="pull-right">
-            <span id="btndis"><a type="button" class="btn btn-danger btn-labeled btn-sm disabled"><b><i class="icon-trash"></i></b> Delete</a>
-            <a type="button" class="btn btn-primary btn-labeled btn-sm disabled"><b><i class="icon-checkmark-circle"></i></b> Approve</a></span>
-            <a href="#upload" onClick="showDownloadTemplate()" class="btn btn-primary btn-labeled btn-sm"><b><i class="icon-cloud-upload"></i></b> Upload</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="content">
-    <!-- Dashboard content -->
-    <div class="row">
-      <div class="col-lg-12">
-          <!-- Default thead border -->
-					<div class="panel panel-flat" id="content_approve">
-            <?=$content?>
+	<div class="page-header-content">
+		<div class="page-title">
+		  <h4><?=$module?></h4>
+		</div>
+		<div class="heading-elements">
+			<div class="col-md-6">
+			
+			</div>        
+		</div>
+	</div>
+	<div id="batch_disbursement" >
+		<div class="breadcrumb-line">
+			<div class="panel-flat">
+				<div class="panel-body">
+					<div class="col-lg-2">
+						<div class="form-group">
+							<select name="status" id="status" data-placeholder="All Status" class="select">
+								<option></option>
+								<option>Pending</option>
+								<option>Failed</option>
+								<option>Completed</option>
+							</select>
+						</div>
 					</div>
-					<!-- /default thead border -->
-      </div>
-    </div>
-  </div>
-  </div>
+					<div class="col-md-4">
+					  <div class="content-group-lg">
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+						  <input id="datecash" value="<?=$date?>" name="date" type="text" class="form-control pickadate-selectors" readonly>
+						</div>
+					  </div>
+					</div>
+					<div class="col-md-4">
+					  <div class="content-group-lg">
+						<div class="input-group">
+						  <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+						  <input id="datecash2" value="<?=$date?>" name="date" type="text" class="form-control pickadate-selectors" readonly>
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<h6 class="panel-title">List of Transactions</h6>
+						</div>
+						<div class="panel-body">							
+							<div class="row">
+								<div class="col-md-12">
+									<div class="table-responsive">
+										<table id="tableDisbursement" class="table">
+											<thead>
+												<tr>
+												<th>Status</th>
+												<th>Ammount</th>
+												<th>Bank Code</th>
+												<th>Account Name</th>
+												<th>Account Number</th>
+												<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?=$datadisburse?>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div id="modal_small" class="modal fade">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Delete File</h5>
-      </div>
-      <form id="setDelete">
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="control-label">Please Enter Your PIN</label>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group has-feedback has-feedback-left">
-                  <input type="password" id="txtChar" onkeypress="return isNumberKey(event)" name="pin" class="form-control input-xlg" placeholder="Enter Your PIN">
-                  <div class="form-control-feedback">
-                    <i class="icon-lock"></i>
-                  </div>
-                  <span id="notepin"></span><br>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <span class="btn btn-link" data-dismiss="modal">Close</span>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div id="modal_small" class="modal fade">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Delete File</h5>
-      </div>
-      <form id="setDelete">
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="control-label">Please Enter Your PIN</label>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group has-feedback has-feedback-left">
-                  <input type="password" id="txtChar" onkeypress="return isNumberKey(event)" name="pin" class="form-control input-xlg" placeholder="Enter Your PIN">
-                  <div class="form-control-feedback">
-                    <i class="icon-lock"></i>
-                  </div>
-                  <span id="notepin"></span><br>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <span class="btn btn-link" data-dismiss="modal">Close</span>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- /page header -->
 <script>
-$("input").change(function(){
-	if(this.checked){
-		$("#btndis").html('<a type="button" id="deleteBatch" data-toggle="modal" data-target="#modal_small" class="btn btn-danger btn-labeled btn-sm"><b><i class="icon-trash"></i></b> Delete</a> '
-      +'<a type="button" id="approveBatch" class="btn btn-primary btn-labeled btn-sm"><b><i class="icon-checkmark-circle"></i></b> Approve</a>');
-	}else{
-    $("#btndis").html('<a type="button" class="btn btn-danger btn-labeled btn-sm disabled"><b><i class="icon-trash"></i></b> Delete</a> '
-      +'<a type="button" class="btn btn-primary btn-labeled btn-sm disabled"><b><i class="icon-checkmark-circle"></i></b> Approve</a>');
-  }
-})
+	$("#status").select2();
+</script>
+
+
+<script>
+    // Pikadate datepicker
+    $('.pickadate-selectors').pickadate(
+		{
+			format: 'yyyy-mm-dd',
+			selectYears: true,
+			selectMonths: true
+    	}
+	);
+	var from_$input = $('#datecash').pickadate();
+    var from_picker = from_$input.pickadate('picker');
+
+    var to_$input = $('#datecash2').pickadate();
+    var to_picker = to_$input.pickadate('picker');
+
+
+    // Check if there’s a “from” or “to” date to start with.
+    if ( from_picker.get('value') ) 
+
+    {        
+       var today = new Date($('#datecash').val());
+       today.setDate(today.getDate())
+      to_picker.set('min', today)
+    }
+    if ( to_picker.get('value') ) 
+    {
+       var today = new Date($('#datecash2').val());
+    today.setDate(today.getDate() - 1)
+      from_picker.set('max', today)
+
+
+    }
+    // When something is selected, update the “from” and “to” limits.
+    from_picker.on('set', function(event) 
+    {
+
+      if ( event.select ) 
+      {
+         var today = new Date($('#datecash').val());
+    today.setDate(today.getDate() + 1)
+        to_picker.set('min', today)    
+      }
+
+      else if ( 'clear' in event ) 
+      {
+
+        to_picker.set('min', false)
+      }
+
+    })
+
+    to_picker.on('set', function(event) 
+    {
+      if ( event.select ) 
+      {
+        var today = new Date($('#datecash2').val());
+    today.setDate(today.getDate() - 1)
+        from_picker.set('max', today)
+      }
+      else if ( 'clear' in event ) 
+      {
+
+        from_picker.set('max', false)
+      }
+	})
 </script>

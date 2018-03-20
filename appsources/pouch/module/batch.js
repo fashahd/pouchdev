@@ -81,7 +81,7 @@ function SetDeleteBatch(){
 					type: "success",
 					closeOnConfirm: false },
 					function(){
-					window.location.href=toUrl+"/disbursements";
+					window.location.href=toUrl+"/batch";
 				});
 				return;
 			}else{
@@ -127,7 +127,7 @@ function SetApproveBatch(){
 					type: "success",
 					closeOnConfirm: false },
 					function(){
-					window.location.href=toUrl+"/disbursements";
+					window.location.href=toUrl+"/batch";
 				});
 				return;
 			}else{

@@ -57,7 +57,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Delete File</h5>
+        <h5 class="modal-title">Delete Disbursement</h5>
       </div>
       <form id="setDelete">
         <div class="modal-body">
@@ -85,14 +85,14 @@
     </div>
   </div>
 </div>
-<div id="modal_small" class="modal fade">
+<div id="modal_approve" class="modal fade">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Delete File</h5>
+        <h5 class="modal-title">Approve Disbursement</h5>
       </div>
-      <form id="setDelete">
+      <form id="setApprove">
         <div class="modal-body">
           <div class="form-group">
             <label class="control-label">Please Enter Your PIN</label>
@@ -123,7 +123,7 @@
 $("input").change(function(){
 	if(this.checked){
 		$("#btndis").html('<a type="button" id="deleteBatch" data-toggle="modal" data-target="#modal_small" class="btn btn-danger btn-labeled btn-sm"><b><i class="icon-trash"></i></b> Delete</a> '
-      +'<a type="button" id="approveBatch" class="btn btn-primary btn-labeled btn-sm"><b><i class="icon-checkmark-circle"></i></b> Approve</a>');
+      +'<a type="button" id="approveBatch" data-toggle="modal" data-target="#modal_approve" class="btn btn-primary btn-labeled btn-sm"><b><i class="icon-checkmark-circle"></i></b> Approve</a>');
 	}else{
     $("#btndis").html('<a type="button" class="btn btn-danger btn-labeled btn-sm disabled"><b><i class="icon-trash"></i></b> Delete</a> '
       +'<a type="button" class="btn btn-primary btn-labeled btn-sm disabled"><b><i class="icon-checkmark-circle"></i></b> Approve</a>');

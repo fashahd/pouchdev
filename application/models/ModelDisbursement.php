@@ -3,9 +3,32 @@
         
         private $transactionTable   = 'pouch_mastertransaction';
         private $transactionDetail  = 'pouch_mastertransactiondetail';
+		private $disbursements = 'pouch_disbursements';
         function __construct() {
             parent::__construct();
         }
+		
+		function getDisbursementAPI(){
+			$sql    = " SELECT a.* FROM ".$this->disbursements." as a";
+            $query  = $this->db->query($sql);
+            $data = "";
+            if($query->num_rows()>0){
+				foreach($query->result() as $row){
+					$data .= "
+						<tr>
+							<td>$row->external_id</td>
+							<td>".number_format($row->amount)."</td>
+							<td>$row->bank_code</td>
+							<td>$row->account_name</td>
+							<td>$row->account_number</td>
+							<td>$row->status</td>
+						</tr>
+					";
+				}
+			}
+			
+			return $data;
+		}
 
         function checkPin($pin){
             $company_id    = $this->session->userdata("sessCompanyID");
@@ -27,9 +50,9 @@
             $this->db->trans_strict(FALSE); # See Note 01. If you wish can remove as well 
 
             for($i=0;$i<count($arrID);$i++){
-                $this->db->where('transaction_id', $arrID[$i]);
+                $this->db->where('transaction_id', $this->aes->decrypt_aes256API($arrID[$i]));
                 $this->db->delete($this->transactionTable);
-                $this->db->where('transaction_id', $arrID[$i]);
+                $this->db->where('transaction_id', $this->aes->decrypt_aes256API($arrID[$i]));
                 $this->db->delete($this->transactionDetail);
             }
 
@@ -72,9 +95,9 @@
                 $data 	= array(
                     "status" 		=> "approved"
                 );
-                $this->db->where("transaction_id",$arrID[$i]);
+                $this->db->where("transaction_id",$this->aes->decrypt_aes256API($arrID[$i]));
                 $this->db->update($this->transactionTable,$data);
-                $this->db->where("transaction_id",$arrID[$i]);
+                $this->db->where("transaction_id",$this->aes->decrypt_aes256API($arrID[$i]));
                 $this->db->update($this->transactionDetail,$data);
             }
 
@@ -255,31 +278,37 @@
                 }
 
                 $content = '
-                <div class="card border-radius-3">
-                    <div class="card-content center">
-                    <div id="table-datatables">
-                        <div class="row">
-                            <div class="col s12">
-                                <table id="" class="responsive-table display" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        <th>Reference</th>
+				<div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-framed">
+                                <thead>
+                                    <tr>
+										<th>Reference</th>
                                         <th>Date Uploaded</th>
                                         <th>Uploader</th>
                                         <th>Qty Transaction</th>
                                         <th>Total</th>
                                         <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        '.$data.'
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    '.$data.'
+                                </tbody>
+                            </table>
                         </div>
-                    </div>                 
-                    </div>                 
-                </div>                 
+                    </div>
+                </div>              
                 ';
             }else{                
                 $content = '			
