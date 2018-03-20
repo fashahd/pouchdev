@@ -347,7 +347,7 @@ class Settings extends MX_Controller {
 				$path[1]     = 'appsources/logo/company/'.$fileNameNew;
 				$path[2]     = 'appsources/logo/company/'.$fileNameNew;
 				
-				$url = base_url().'appsources/logo/company/'.$fileNameNew;
+				$url = 'appsources/logo/company/'.$fileNameNew;
 				$this->session->set_userdata("sessCompanyLogo",$url);
 				$sql = "UPDATE pouch_mastercompanydata SET company_logo = '$url' WHERE company_id = '$companyID'";
 				$this->db->query($sql);

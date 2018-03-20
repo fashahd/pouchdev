@@ -1,6 +1,5 @@
   <?php
-	class ModelUser extends CI_Model {
-        
+	class ModelUser extends CI_Model {        
         function getTransactions($companyID,$vdt,$vdt2){
             $dttm   = $vdt." 00:00:00";
             $dttm2  = $vdt2." 23:59:59";

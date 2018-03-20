@@ -71,8 +71,8 @@
 
 		function validation($email,$password){
             $encrypted_pwd = $this->aes->encrypt_aes256($_POST["password"]);
-            $sql    = " SELECT a.*, b.company_id, b.company_logo, b.company_name FROM pouch_masteremployeecredential as a"
-                    . " LEFT JOIN pouch_mastercompanydata as b on b.userID = a.userID"
+            $sql    = " SELECT a.*, a.company_id, b.company_logo, b.company_name FROM pouch_masteremployeecredential as a"
+                    . " LEFT JOIN pouch_mastercompanydata as b on b.company_id = a.company_id"
                     . " WHERE a.email = ? AND a.password = ?";
             // return $sql;
             $query  = $this->db->query($sql,array($email,$encrypted_pwd));
