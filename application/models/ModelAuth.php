@@ -167,7 +167,7 @@
             $year    = date("y");
             $sql    = "SELECT left(a.userID,2) as fmonth, mid(a.userID,3,2) as fday," 
                     . " mid(a.userID,5,2) as fyear, mid(a.userID,7,3) as initiat,"
-                    . " right(a.userID,4) as fno FROM POUCH_MasterEmployeeCredential AS a"
+                    . " right(a.userID,4) as fno FROM pouch_masteremployeecredential AS a"
                     . " where left(a.userID,2) = '$month' and mid(a.userID,3,2) = '$day'"
                     . " and mid(a.userID,5,2) = '$year' and mid(a.userID,7,3)= '$initiatx'"
                     . " order by fmonth desc, CAST(fno AS SIGNED) DESC LIMIT 1";

@@ -1,8 +1,25 @@
 <!DOCTYPE html>
-<?php $company_logo = $this->session->userdata("sessCompanyLogo");?>
-<?php $company_name = $this->session->userdata("sessCompanyName");?>
-<?php $fullname = $this->session->userdata("sessFullNam");?>
 <?php
+	$userID = $this->session->userdata("sessUserID");
+	
+	$sql = "SELECT * FROM pouch_masteremployeecredential WHERE userID = '$userID'";
+	$query  = $this->db->query($sql);
+	if($query -> num_rows() > 0){
+		$row        = $query->row();
+		$fullName   = $row->fullName;
+		$email      = $row->email;
+		$phoneNumber      = $row->phoneNumber;
+	}
+	$sql = "SELECT * FROM pouch_mastercompanydata WHERE userID = '$userID'";
+		$query  = $this->db->query($sql);
+		if($query -> num_rows() > 0){
+			$row        = $query->row();
+			$company_id = $row->company_id;
+			$company_name    = $row->company_name;
+			$company_address = $row->company_address;
+			$company_email   = $row->company_email;
+			$company_logo    = $row->company_logo;
+		}
     /* This sets the $time variable to the current hour in the 24 hour clock format */
     $time = date("H");
     /* Set the $timezone variable to become the current timezone */
@@ -44,7 +61,7 @@
             </ul>
             
             <div class="navbar-right">
-                <p class="navbar-text"><?=$greeting?>, <?=$fullname?></p>
+                <p class="navbar-text"><?=$greeting?>, <?=$fullName?></p>
             </div>
 		</div>
 	</div>
@@ -65,8 +82,8 @@
 					<div class="sidebar-user-material">
 						<div class="category-content">
 							<div class="sidebar-user-material-content">
-								<a href="#"><img src="<?=$company_logo?>" class="img-circle img-responsive" alt=""></a>
-								<h6><?=$fullname?></h6>
+								<a href="#"><img src="<?=base_url().$company_logo?>" class="img-circle img-responsive" alt=""></a>
+								<h6><?=$fullName?></h6>
 								<span class="text-size-small"><?=$company_name?></span>
 							</div>
 														

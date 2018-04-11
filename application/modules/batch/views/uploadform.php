@@ -1,10 +1,19 @@
-<div class="breadcrumb-line">
-  <div class="panel-flat">
-    <div class="panel-body">
-      <div class="pull-right">
-        <a href="<?=base_url()?>templates/pouch_disburse_v1a.xlsx" target="_blank" class="btn btn-default btn-labeled btn-sm"><b><i class="icon-cloud-download"></i></b> Download Template</a>
+
+<div class="page-header page-header-default">
+  <div class="page-header-content">
+    <div class="page-title">
+      <h4>Batch Disbursements</h4>
+    </div>
+  </div>
+  <div class="breadcrumb-line">
+    <div class="panel-flat">
+      <div class="panel-body">
+        <div class="pull-right">
+          <a href="<?=base_url()?>templates/pouch_disburse_v1a.xlsx" target="_blank" class="btn btn-default btn-labeled btn-sm"><b><i class="icon-cloud-download"></i></b> Download Template</a>
+        </div>
       </div>
     </div>
+  </div>
 </div>
 <div class="content">
   <!-- Dashboard content -->

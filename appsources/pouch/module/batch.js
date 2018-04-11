@@ -1,3 +1,17 @@
+function detaildisburse(disburse_id){
+	$.ajax({
+		type : 'POST',
+		url  : toUrl+"/disbursements/detaildisburse",
+		data : {disburse_id:disburse_id},
+		// dataType: "json",
+		success: function(data){
+			$("#batch_disbursement").html(data);
+		},error: function(xhr, ajaxOptions, thrownError){            
+			alert(xhr.responseText);
+		}
+	});
+}
+
 $("#deleteBatch").click(function(){
 	$('#modal_small').modal('open');
 })

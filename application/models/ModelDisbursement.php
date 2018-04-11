@@ -7,21 +7,65 @@
         function __construct() {
             parent::__construct();
         }
+
+        function getDetailDisburse($disburse_id){
+            $disburse_id = $this->aes->decrypt_aes256API($disburse_id);
+            $sql    = "SELECT a.* FROM ".$this->disbursements." as a WHERE a.disburse_id = ?";
+            $query  = $this->db->query($sql, array($disburse_id));
+            if($query->num_rows()>0){
+                $row    = $query->row();
+                $status = $row->status;
+                $account_name = $row->account_name;
+                $account_number = $row->account_number;
+                $bank_code = $row->bank_code;
+                $description = $row->description;
+                $external_id = $row->external_id;
+                $created_datetime = $row->created_datetime;
+                $amount = $row->amount;
+                $callback = $row->callback_response;
+                $callback_datetime  = $row->callback_datetime;
+                $callback_message   = $row->callback_message;
+                $bank_reference = $row->bank_reference;
+            }
+
+            return array($status,$account_name,$account_number,$bank_code,$description,$external_id,$created_datetime,$amount,$callback,$callback_datetime,$callback_message,$bank_reference);
+        }
 		
-		function getDisbursementAPI(){
-			$sql    = " SELECT a.* FROM ".$this->disbursements." as a";
-            $query  = $this->db->query($sql);
+		function getDisbursementAPI($date,$date2,$status){
+            $date   = date("Y-m-d", strtotime($date));
+            $date2  = date("Y-m-d", strtotime($date2));
+            $status = strtoupper($status);
+            $date   = $date." 00:00:00";
+            $date2  = $date2." 23:59:59";
+            if($status == "ALL"){
+                $sql    = " SELECT a.* FROM ".$this->disbursements." as a where created_datetime >= ? AND created_datetime <= ?";
+                $query  = $this->db->query($sql, array($date,$date2));
+            }else{                
+                $sql    = " SELECT a.* FROM ".$this->disbursements." as a where status = ? AND created_datetime >= ? AND created_datetime <= ?";
+                $query  = $this->db->query($sql, array($status,$date,$date2));
+            }
             $data = "";
             if($query->num_rows()>0){
 				foreach($query->result() as $row){
+					$disburse_id = $this->aes->encrypt_aes256API($row->disburse_id);
+                    if($row->status == "PENDING"){
+                        $btnstatus = "<button class='btn btn-warning' onClick='detaildisburse(\"$disburse_id\")'>$row->status</button>";
+                    }
+                    if($row->status == "FAILED"){
+                        $btnstatus = "<button class='btn btn-danger' onClick='detaildisburse(\"$disburse_id\")'>$row->status</button>";
+                    }
+                    if($row->status == "COMPLETED"){
+                        $btnstatus = "<button class='btn btn-success' onClick='detaildisburse(\"$disburse_id\")'>$row->status</button>";
+                    }
 					$data .= "
 						<tr>
 							<td>$row->external_id</td>
+							<td>".date("d M Y H:i:s", strtotime($row->created_datetime))."</td>
 							<td>".number_format($row->amount)."</td>
 							<td>$row->bank_code</td>
 							<td>$row->account_name</td>
 							<td>$row->account_number</td>
-							<td>$row->status</td>
+							<td>$btnstatus</td>
 						</tr>
 					";
 				}
@@ -202,13 +246,6 @@
                 $content = '
                 <div class="panel panel-flat">
                     <div class="panel-heading">
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                                <li><a data-action="reload"></a></li>
-                                <li><a data-action="close"></a></li>
-                            </ul>
-                        </div>
                     </div>
 
                     <div class="panel-body">
@@ -280,13 +317,6 @@
                 $content = '
 				<div class="panel panel-flat">
                     <div class="panel-heading">
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                                <li><a data-action="reload"></a></li>
-                                <li><a data-action="close"></a></li>
-                            </ul>
-                        </div>
                     </div>
 
                     <div class="panel-body">

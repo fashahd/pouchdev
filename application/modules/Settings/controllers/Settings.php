@@ -143,42 +143,11 @@ class Settings extends MX_Controller {
 
 	function createNewUser(){
 		$email 		= $_POST["email"];
-		$name 		= $_POST["name"];
-		$new_pass	= $_POST["new_pass"];
-		$re_pass	= $_POST["re_pass"];
-		$password	= $this->aes->encrypt_aes256($new_pass);
-		$permission	= $_POST["permission"];
 		$exist 		= $this->ModelSetting->checkUserExist($email);
 		if($exist == "exist"){
-			$sql 	= "UPDATE pouch_masteremployeecredential SET status = 'active' WHERE email = ?";
-			$query	= $this->db->query($sql,array($email));
 			$return 	= array(
-				"status"		=> 200,
-				"keterangan"	=> "User Existed, But Activated"
-			);
-			$sql = "SELECT userID FROM pouch_masteremployeecredential WHERE email = ?";
-			$query  = $this->db->query($sql,$email);
-			$row = $query->row();
-			$userID = $row->userID;
-			if(count($_POST["permission"])>0){
-                for($i = 0; $i<count($_POST["permission"]);$i++){
-                    $dataPermission = array(
-                        'userID' => $userID,
-                        'permission_id' => $_POST["permission"][$i]
-                    );
-                    $this->db->insert('pouch_roleuser', $dataPermission);
-                }
-            } 
-			
-			echo json_encode($return);
-			return;
-		}
-		// print_r($permission);
-		// return;
-		if($new_pass != $re_pass){
-			$return 	= array(
-				"status"		=> 301,
-				"keterangan"	=> "Password is Not Same"
+				"status"		=> 201,
+				"keterangan"	=> "Email Address Existed"
 			);
 			
 			echo json_encode($return);
@@ -195,7 +164,7 @@ class Settings extends MX_Controller {
 			return;
 		}
 		
-		$createNewUser = $this->ModelSetting->createNewUser($email,$name,$password,$_POST["permission"]);
+		$createNewUser = $this->ModelSetting->createNewUser($email,$_POST["permission"]);
 
 		echo $createNewUser;
 		return;
@@ -226,11 +195,20 @@ class Settings extends MX_Controller {
 		return;
 	}
 
+	function doBalance(){
+		$companyID 	= $this->session->userdata("sessCompanyID");
+		$balance = $this->ModelSetting->getCompanyBalance($companyID);
+		if($balance < $_POST["amount"]){
+			echo json_encode(array("status"=>400,"keterangan"=>"Not Enough Balance"));
+		}
+	}
+
 	function deleteUser(){
 		if(isset($_POST["userID"])){
-			$sql 	= "UPDATE pouch_masteremployeecredential set status= 'deactive' WHERE userID = '$_POST[userID]'";
+			$sql 	= "DELETE FROM pouch_masteremployeecredential WHERE userID = '$_POST[userID]'";
 			$sql2  	= "DELETE FROM pouch_roleuser WHERE userID = '$_POST[userID]'";
 			$query 	= $this->db->query($sql);
+			$query 	= $this->db->query($sql2);
 			if($query){
 				echo "sukses";
 				return;

@@ -95,25 +95,31 @@ class Batch extends MX_Controller {
 			$status = "<span class='btn btn-primary btn-sm'>$status</span>";
 		}
 		$ret = '
-		<div class="breadcrumb-line">
-			<div class="panel-flat">
-				<div class="panel-body">
-					<div class="row search-option-buttons">
-						<div class="col-sm-6">
-							<ul class="list-inline list-inline-condensed no-margin-bottom">
-								<li class="dropdown">
-									<a href="'.base_url().'disbursements" class="btn btn-link btn-sm" >
-										<i class="icon-circle-left2 position-left"></i> Go Back
-									</a>
-								</li>
-								<li>'.$status.'</li>
-							</ul>
+		<div class="page-header page-header-default">
+			<div class="page-header-content">
+				<div class="page-title">
+					<h4>Batch Disbursements</h4>
+				</div>
+			</div>
+			<div class="breadcrumb-line">
+				<div class="panel-flat">
+					<div class="panel-body">
+						<div class="row search-option-buttons">
+							<div class="col-sm-6">
+								<ul class="list-inline list-inline-condensed no-margin-bottom">
+									<li class="dropdown">
+										<a href="'.base_url().'batch" class="btn btn-link btn-sm" >
+											<i class="icon-circle-left2 position-left"></i> Go Back
+										</a>
+									</li>
+									<li>'.$status.'</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 		<div class="content">
 			<h4 class="text-center content-group">
 				Batch awaiting approval

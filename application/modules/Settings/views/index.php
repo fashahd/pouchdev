@@ -235,48 +235,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h5 class="modal-title">Create New Users</h5>
+                <h5 class="modal-title">Invite Users</h5>
+                <p>Please input your team member email</p>
             </div>
             <form id="createUser">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input required placeholder="Email" id="email" name="email" type="email" class="form-control input-xlg" placeholder="Enter Your New PIN">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-envelop3"></i>
-                                    </div>
-                                    <span id="notepin"></span><br>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input required placeholder="Email" id="email" name="email" type="email" class="form-control input-xlg" placeholder="Enter Your New PIN">
+                                <div class="form-control-feedback">
+                                    <i class="icon-envelop3"></i>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input required placeholder="Full Name" id="name" name="name" type="text"  class="form-control input-xlg" placeholder="Enter Your New PIN">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input required placeholder="New Password" id="new_pass" name="new_pass" type="password" class="form-control input-xlg" placeholder="Enter Your New PIN">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-lock"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group has-feedback has-feedback-left">
-                                    <input required placeholder="Re-Type Password" id="re_pass" name="re_pass" type="password" class="form-control input-xlg" placeholder="Enter Your New PIN">
-                                    <div class="form-control-feedback">
-                                        <i class="icon-lock"></i>
-                                    </div>
-                                </div>
+                                <span id="notepin"></span><br>
                             </div>
                         </div>
                     </div>
@@ -285,7 +256,6 @@
                             <table class="table text-nowrap">
                                 <colgroup><col width="2%"></colgroup>
                                 <tbody>
-                                    <tr><td colspan="2">Permission</td></tr>
                                     <?=$optPermission?>
                                 </tbody>
                             </table>

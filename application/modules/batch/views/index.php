@@ -1,38 +1,34 @@
 
 <!-- Page header -->
-<div class="page-header page-header-default">
-  <div class="page-header-content">
-    <div class="page-title">
-      <h4><?=$module?></h4>
+<div id="batch_disbursement">
+  <div class="page-header page-header-default">
+    <div class="page-header-content">
+      <div class="page-title">
+        <h4><?=$module?></h4>
+      </div>
     </div>
-    <div class="heading-elements">
-        <div class="col-md-6">
-        
-        </div>        
-    </div>
-  </div>
-  <div id="batch_disbursement" >
-  <div class="breadcrumb-line">
-    <div class="panel-flat">
-      <div class="panel-body">
-        <div class="tabbable col-lg-6">
-          <ul class="nav nav-tabs nav-tabs-bottom">
-            <?php 
-            if($tab == "need"){
-              echo '<li class="active"><a href="#needApprove" onClick="setTab(\'need\')" data-toggle="tab">Need Approval</a></li>
-              <li><a href="#approved" onClick="setTab(\'approved\')" data-toggle="tab">Approved</a></li>';
-            }else{
-              echo '<li><a href="#needApprove" onClick="setTab(\'need\')" data-toggle="tab">Need Approval</a></li>
-              <li class="active"><a href="#approved" onClick="setTab(\'approved\')" data-toggle="tab">Approved</a></li>';
-            }
-            ?>
-          </ul>
-        </div>
-        <div class="tabbale col-lg-6">
-          <div class="pull-right">
-            <span id="btndis"><a type="button" class="btn btn-danger btn-labeled btn-sm disabled"><b><i class="icon-trash"></i></b> Delete</a>
-            <a type="button" class="btn btn-primary btn-labeled btn-sm disabled"><b><i class="icon-checkmark-circle"></i></b> Approve</a></span>
-            <a href="#upload" onClick="showDownloadTemplate()" class="btn btn-primary btn-labeled btn-sm"><b><i class="icon-cloud-upload"></i></b> Upload</a>
+    <div class="breadcrumb-line">
+      <div class="panel-flat">
+        <div class="panel-body">
+          <div class="tabbable col-lg-6">
+            <ul class="nav nav-tabs nav-tabs-bottom">
+              <?php 
+              if($tab == "need"){
+                echo '<li class="active"><a href="#needApprove" onClick="setTab(\'need\')" data-toggle="tab">Need Approval</a></li>
+                <li><a href="#approved" onClick="setTab(\'approved\')" data-toggle="tab">Approved</a></li>';
+              }else{
+                echo '<li><a href="#needApprove" onClick="setTab(\'need\')" data-toggle="tab">Need Approval</a></li>
+                <li class="active"><a href="#approved" onClick="setTab(\'approved\')" data-toggle="tab">Approved</a></li>';
+              }
+              ?>
+            </ul>
+          </div>
+          <div class="tabbale col-lg-6">
+            <div class="pull-right">
+              <span id="btndis"><a type="button" class="btn btn-danger btn-labeled btn-sm disabled"><b><i class="icon-trash"></i></b> Delete</a>
+              <a type="button" class="btn btn-primary btn-labeled btn-sm disabled"><b><i class="icon-checkmark-circle"></i></b> Approve</a></span>
+              <a href="#upload" onClick="showDownloadTemplate()" class="btn btn-primary btn-labeled btn-sm"><b><i class="icon-cloud-upload"></i></b> Upload</a>
+            </div>
           </div>
         </div>
       </div>
@@ -49,7 +45,6 @@
 					<!-- /default thead border -->
       </div>
     </div>
-  </div>
   </div>
 </div>
 <div id="modal_small" class="modal fade">

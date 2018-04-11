@@ -31,6 +31,85 @@ $(document).on('change', '#image_upload_file', function () {
 	}).submit();
 });
 
+$("#status_batch").on("change",function(){
+	var status_batch = $("#status_batch").val();
+	var date 	= $("#datecash").val();
+	var date2 	= $("#datecash2").val();
+
+	$.ajax({
+		type : 'POST',
+		url  : toUrl+"/disbursements/getDisburseDataStatus",
+		data : {status:status_batch,date:date,date2:date2},
+		// dataType: "json",
+		success: function(data){
+			$("#disbursementdata").html(data);
+		},error: function(xhr, ajaxOptions, thrownError){            
+			alert(xhr.responseText);
+		}
+	});
+})
+
+$("#datecash").on("change",function(){
+	var status_batch = $("#status_batch").val();
+	var date 	= $("#datecash").val();
+	var date2 	= $("#datecash2").val();
+
+	$.ajax({
+		type : 'POST',
+		url  : toUrl+"/disbursements/getDisburseDataStatus",
+		data : {status:status_batch,date:date,date2:date2},
+		// dataType: "json",
+		success: function(data){
+			$("#disbursementdata").html(data);
+		},error: function(xhr, ajaxOptions, thrownError){            
+			alert(xhr.responseText);
+		}
+	});
+})
+
+$("#datecash2").on("change",function(){
+	var status_batch = $("#status_batch").val();
+	var date 	= $("#datecash").val();
+	var date2 	= $("#datecash2").val();
+
+	$.ajax({
+		type : 'POST',
+		url  : toUrl+"/disbursements/getDisburseDataStatus",
+		data : {status:status_batch,date:date,date2:date2},
+		// dataType: "json",
+		success: function(data){
+			$("#disbursementdata").html(data);
+		},error: function(xhr, ajaxOptions, thrownError){            
+			alert(xhr.responseText);
+		}
+	});
+})
+
+$("#doBalance").submit(function(event){
+	event.preventDefault();
+	var form = $("#doBalance");
+	$.ajax({
+		type : 'POST',
+		url  : toUrl+"/settings/doBalance",
+		data : form.serialize(),
+		dataType: "json",
+		success: function(data){
+			if(data.status == "200"){
+
+			}else{
+				swal({    
+					title: "Oppsss !",
+					text: data.keterangan,
+					type: "warning",
+					closeOnConfirm: true });
+				return;  
+			}
+		},error: function(xhr, ajaxOptions, thrownError){            
+			alert(xhr.responseText);
+		}
+	});
+})
+
 $('#account_information').submit(function(event) {
     event.preventDefault();
 

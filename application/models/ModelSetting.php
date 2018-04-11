@@ -59,16 +59,14 @@
             }
         }
 
-        function createNewUser($email,$name,$password,$arrpermission){
+        function createNewUser($email,$arrpermission){
             $companyID 	= $this->session->userdata("sessCompanyID");
             $userID     = $this->createUserID();
             $data = array(
-                'userID'        =>$userID, 
-                'fullName'      =>$name,
-                'password'      =>$password,
+                'userID'        =>$userID,
                 'email'         =>$email,
                 'company_id'    =>$companyID,
-                'status'        =>'active'
+                'status'        =>'deactive'
             );
             $this->db->trans_begin();
             $this->db->insert('pouch_masteremployeecredential', $data);
@@ -85,11 +83,36 @@
             if ($this->db->trans_status() === FALSE) {
                 //if something went wrong, rollback everything
                 $this->db->trans_rollback();
-                return json_encode(array("status"=>400,"keterangan"=>"User Gagal Ditambahkan, Harap Hubungi Customer Service Kami"));
+                return json_encode(array("status"=>400,"keterangan"=>"User Failed to Invited, Please Call Our Customer Service"));
             } else {
+                //SMTP & mail configuration
+                $config = array(
+                    'protocol'  => 'smtp',
+                    'smtp_host' => 'ssl://mail.mypouch.co.id',
+                    'smtp_port' => 465,
+                    'smtp_user' => 'info@mypouch.co.id',
+                    'smtp_pass' => 'mypouch2018',
+                    'mailtype'  => 'html',
+                    'charset'   => 'utf-8'
+                );
+                $this->email->initialize($config);
+                $this->email->set_mailtype("html");
+                $this->email->set_newline("\r\n");
+
+                //Email content
+                $htmlContent = '<h1>Sending email via SMTP server</h1>';
+                $htmlContent .= '<p>This email has sent via SMTP server from CodeIgniter application.</p>';
+
+                $this->email->to($email);
+                $this->email->from('info@mypouch.co.id','Test');
+                $this->email->subject('How to send email via SMTP server in CodeIgniter');
+                $this->email->message($htmlContent);
+
+                //Send email
+                $result = $this->email->send();
                 //if everything went right, commit the data to the database
                 $this->db->trans_commit();
-                return json_encode(array("status"=>200,"keterangan"=>"User Berhasil Ditambahkan"));
+                return json_encode(array("status"=>200,"keterangan"=>"User Invited Success"));
             }
         }
 
@@ -223,7 +246,7 @@
         function getDataUsers(){
             $userID = $this->session->userdata("sessUserID");
             $companyID 	= $this->session->userdata("sessCompanyID");
-            $sql    = "SELECT * FROM pouch_masteremployeecredential WHERE company_id = '$companyID' and status='active'";
+            $sql    = "SELECT * FROM pouch_masteremployeecredential WHERE company_id = '$companyID'";
             $query  = $this->db->query($sql);
             $ret    = "";
             if($query->num_rows()>0){
@@ -257,7 +280,7 @@
             $ret = '
             <div class="panel-heading">
                 <h5 class="panel-title">Users Settings</h5>
-                <a data-toggle="modal"  data-target="#modal_users" type="button" class="btn btn-primary btn-labeled btn-sm pull-right"><b><i class="icon-user-plus"></i></b> Create Account</a></span>
+                <a data-toggle="modal"  data-target="#modal_users" type="button" class="btn btn-primary btn-labeled btn-sm pull-right"><b><i class="icon-user-plus"></i></b> Invite Account</a></span>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -405,9 +428,23 @@
             return $data;
         }
 
+        function getCompanyBalance($companyID){
+            $sql = "SELECT company_balance FROM pouch_mastercompanyaccount WHERE company_id = ?";
+            $query = $this->db->query($sql,array($companyID));
+            if($query){
+                $row = $query->row();
+                $balance = $row->company_balance;
+            }else{
+                $balance = 0;
+            }
+
+            return $balance;
+        }
+
         function getTabWithdraw($userID){
             $companyID 	    = $this->session->userdata("sessCompanyID");
             $withdrawlist   = $this->getWithdrawList($companyID);
+            $balance        = $this->getCompanyBalance($companyID);
             $dataRet = '';
 			$optdest = "";
             if($withdrawlist){
@@ -461,16 +498,16 @@
 						<div class="panel panel-flat">
 							<div class="panel-body">
 							<p>Available cash for withdrawal</p>
-							<h4>IDR 0</h4>
-							<form>
+							<h4>IDR '.number_format($balance).'</h4>
+							<form id="doBalance">
 								<div class="form-group">
 									<label>Amount:</label>
-									<input required onkeypress="return isNumberKey(event)" type="text" class="form-control" placeholder="Amount">
+									<input required onkeypress="return isNumberKey(event)" type="text" class="form-control" placeholder="Amount" name="amount">
 									<span id="notepin"></span>
 								</div>
 								<div class="form-group">
 									<label>Destination:</label>
-									<select required name="account" id="account" data-placeholder="Destination" class="select">\
+									<select required name="account" id="account" data-placeholder="Destination" class="select" name="account">\
 										<option></option>
 										'.$optdest.'
 									</select>
@@ -612,7 +649,7 @@
                                     <div id="imgContainer">
                                         <form enctype="multipart/form-data" action="settings/uploadlogo" method="post" name="image_upload_form" id="image_upload_form">
                                             <div id="imgArea" class="card-avatar">
-                                                <img src="'.$company_logo.'" alt="" class="responsive-img activator">
+                                                <img src="'.base_url().$company_logo.'" alt="" class="responsive-img activator">
                                                 <div class="progressBar">
                                                     <div class="bar"></div>
                                                     <div class="percent">0%</div>
@@ -678,13 +715,13 @@
 								<h5 class="panel-title">Development Keys</h5>
 							</div>
 							<div class="panel-body">
-								<div class="form-group">
+								<!--<div class="form-group">
 									<label>Public Key:</label>
 									<input class="form-control"  disabled id="public_key_development" type="text" value="'.$public_key_dev.'">
 								</div>
 								<div class="form-group tooltips">
 									<button class="btn btn-primary" id="user_cre_dev" data-popup="tooltip" title="Copy to Clipboard" >Copy</button>
-								</div>
+								</div>-->
 								<div class="form-group">
 									<label>Secret Key:</label>
 									<input class="form-control" disabled id="secret_key_development" type="text" value="'.$secret_key_dev.'">
@@ -703,15 +740,8 @@
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<label>User Credential:</label>
-									<input class="form-control"  disabled id="" type="text">
-								</div>
-								<div class="form-group">
-									<button class="btn btn-primary">Copy</button>
-								</div>
-								<div class="form-group">
-									<label>User Key:</label>
-									<input class="form-control" disabled id="" type="text">
+									<label>Secret Key:</label>
+									<input class="form-control" disabled id="" type="text" value="Not Available">
 								</div>
 								<div class="form-group">
 									<button class="btn btn-primary" id="">Copy</button>
