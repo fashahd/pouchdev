@@ -3,23 +3,37 @@
         function getTransactions($companyID,$vdt,$vdt2){
             $dttm   = $vdt." 00:00:00";
             $dttm2  = $vdt2." 23:59:59";
-            $sql    = " SELECT count(a.transaction_id) as jml_transaction "
+            $amount = 0;
+            $amountdisburse = 0;
+            $sql    = " SELECT a.transaction_id, a.amount"
                     . " FROM `pouch_mastertransactiondetail` as a "
-                    . " WHERE a.company_id = '$companyID' AND a.transaction_date >= '$dttm' "
-                    . "AND a.transaction_date <= '$dttm2' AND a.status in ('success','approved')";
-            $query  = $this->db->query($sql);
+                    . " WHERE a.company_id = ? AND a.transaction_date >= ? "
+                    . "AND a.transaction_date <= ? AND a.status in ('success')";
+            $query  = $this->db->query($sql, array($companyID,$dttm,$dttm2));
             if($query -> num_rows() > 0){
-                $row        = $query->row();
-                $jml_transaction = $row->jml_transaction;
-                if($jml_transaction > 0){
-                    $jml_transaction = number_format($jml_transaction);
+                foreach($query->result() as $row){
+                    $amount = ($amount+$row->amount);
                 }
-
-                $data = $jml_transaction;
+                $jmltransactionbatch = number_format($query->num_rows());
             }else{
-                $data = null;
+                $jmltransactionbatch = 0;
             }
-            return $data;
+
+            $sql2 = " SELECT disburse_id, amount FROM `pouch_disbursements` "
+                 . " WHERE company_id = ? AND created_datetime >= ? AND created_datetime <= ? AND status = ?";
+            $query2  = $this->db->query($sql2, array($companyID,$dttm,$dttm2,"COMPLETED"));
+            // echo $this->db->last_query();
+            if($query2 -> num_rows() > 0){
+                foreach($query2->result() as $row2){
+                    $amountdisburse = ($amountdisburse+$row2->amount);
+                }
+                $jmltransactiondisburse = number_format($query2->num_rows());
+            }else{
+                $jmltransactiondisburse = 0;
+            }
+            $jmltransaction = $jmltransactionbatch + $jmltransactiondisburse;
+            $jmlamount      = $amount + $amountdisburse;
+            return array($jmltransaction,$jmlamount);
         }
 
         function getBalance($companyID){

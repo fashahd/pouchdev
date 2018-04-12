@@ -52,6 +52,7 @@ class Layout {
             
                 <script type="text/javascript" src="'.base_url().'appsources/js/core/app.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/pages/dashboard.js"></script>
+                <script type="text/javascript" src="'.base_url().'appsources/js/pages/cash.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/pages/picker_date.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/pages/components_modals.js"></script>
 				<script type="text/javascript" src="'.base_url().'appsources/js/pages/components_notifications_pnotify.js"></script>

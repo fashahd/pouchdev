@@ -24,10 +24,11 @@ class Dashboard extends MX_Controller {
 			$vdt2 = $this->session->userdata("vdt2");
 		}
 		$companyID 	= $this->session->userdata("sessCompanyID");
+		list($jmltransaction,$jmlamount)=$this->ModelUser->getTransactions($companyID,$vdt,$vdt2);
 		$data["balance"] = $this->ModelUser->getBalance($companyID);
 		$data["income"]	= $this->ModelUser->getIncome($companyID,$vdt,$vdt2);
-		$data["transactions"]	= $this->ModelUser->getTransactions($companyID,$vdt,$vdt2);
-		$data["outcome"]	= $outcome 	 = $this->ModelUser->getOutCome($companyID,$vdt,$vdt2);
+		$data["transactions"]	= number_format($jmltransaction);
+		$data["outcome"]	= number_format($jmlamount);
 		$data["date"]	= date("Y-m-d", strtotime($vdt));
 		$data["date2"]	= date("Y-m-d", strtotime($vdt2));
 		$data["module"] = "Cash Account";
@@ -43,12 +44,11 @@ class Dashboard extends MX_Controller {
 		$this->session->set_userdata("vdt",$vdt);
 		$this->session->set_userdata("vdt2",$vdt2);
 		$companyID 	 = $this->session->userdata("sessCompanyID");
-		$transaction = $this->ModelUser->getTransactions($companyID,$vdt,$vdt2);
-		$outcome 	 = $this->ModelUser->getOutCome($companyID,$vdt,$vdt2);
+		list($jmltransaction,$jmlamount)=$this->ModelUser->getTransactions($companyID,$vdt,$vdt2);
 
 		$data 	= array(
-			"total_transaction"	=> $transaction,
-			"outcome"			=> $outcome
+			"total_transaction"	=> number_format($jmltransaction),
+			"outcome"			=> "Rp ".number_format($jmlamount)
 		);
 
 		echo json_encode($data);

@@ -17,7 +17,7 @@ class Disbursements extends MX_Controller {
 	{
 		$date 	= date("Y-m-d");
 		$date2 	= date("Y-m-d");
-		$status = "";
+		$status = "ALL";
 		if($this->session->userdata("date")){
 			$date 		= $this->session->userdata("date");
 		}

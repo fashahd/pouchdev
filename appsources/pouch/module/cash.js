@@ -24,6 +24,8 @@ $(document).on('change', '#datecash2', function () {
 		data : {vdt:vdt, vdt2:vdt2},
 		dataType: "json",
 		success: function(data){
+			// alert(JSON.stringify(data));
+			// return;
 			$("#total_transaction").html(data.total_transaction);
 			$("#money_out").html(data.outcome);
 		},error: function(xhr, ajaxOptions, thrownError){            

@@ -78,7 +78,7 @@
                   <li><i style="font-size:18pt" class="icon-cash3"></i></li>
                 </ul>
               </div>
-              <h3 class="no-margin">Rp <?=$transactions?></h3>
+              <h3 class="no-margin" id="total_transaction"><?=$transactions?></h3>
               TOTAL TRANSACTION              
             </div>
           </div>
@@ -93,7 +93,7 @@
                   <li><i style="font-size:18pt" class=" icon-database-export"></i></li>
                 </ul>
               </div>
-              <h3 class="no-margin">Rp <?=$outcome?></h3>
+              <h3 class="no-margin" id="money_out">Rp <?=$outcome?></h3>
               MONEY OUT              
             </div>
           </div>
