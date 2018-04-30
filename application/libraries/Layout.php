@@ -32,10 +32,7 @@ class Layout {
                 <!-- /core JS files -->
             
                 <!-- Theme JS files -->
-                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/visualization/d3/d3.min.js"></script>
-                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/visualization/d3/d3_tooltip.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/styling/switchery.min.js"></script>
-                <script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/styling/uniform.min.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/plugins/ui/moment/moment.min.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/plugins/pickers/daterangepicker.js"></script>
@@ -47,17 +44,14 @@ class Layout {
 				<script type="text/javascript" src="'.base_url().'appsources/js/pages/components_popups.js"></script>
 				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/notifications/pnotify.min.js"></script>
 				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/selects/select2.min.js"></script>
-				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/forms/styling/uniform.min.js"></script>
 				<script type="text/javascript" src="'.base_url().'appsources/js/plugins/loaders/progressbar.min.js"></script>
             
                 <script type="text/javascript" src="'.base_url().'appsources/js/core/app.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/pages/dashboard.js"></script>
-                <script type="text/javascript" src="'.base_url().'appsources/js/pages/cash.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/pages/picker_date.js"></script>
                 <script type="text/javascript" src="'.base_url().'appsources/js/pages/components_modals.js"></script>
 				<script type="text/javascript" src="'.base_url().'appsources/js/pages/components_notifications_pnotify.js"></script>
 				<script type="text/javascript" src="'.base_url().'appsources/js/pages/form_layouts.js"></script>
-            
                 <script type="text/javascript" src="'.base_url().'appsources/js/plugins/ui/ripple.min.js"></script>
                 <!-- /theme JS files -->
             

@@ -70,7 +70,7 @@ class Batch extends MX_Controller {
 		list($reference,$fullName,$created_dttm,$status)=$data;
 		$table 	= $this->ModelDisbursement->getTransactionDetail($transaction_id);
 		$sql    = " SELECT a.* FROM pouch_mastertransactiondetail as a"
-                    . " WHERE a.transaction_id = '$transaction_id' and status='active'";
+                    . " WHERE a.transaction_id = '$transaction_id' and status='$status'";
 		$query  = $this->db->query($sql);
 		$total = $query->num_rows();
 		$amount = 0;
@@ -89,10 +89,29 @@ class Batch extends MX_Controller {
 				$amounte = $amounte+$key->amount;
 			}
 		}
+		$keterangan = "";
+		$btnproses = "";
 		if($status == "active"){
 			$status = "<span class='btn btn-primary btn-sm'>Need Approval</span>";
+			$icon 	= "icon-enlarge7";
+			$keterangan = '
+			<h4 class="text-center content-group">
+				Batch awaiting approval
+				<small class="display-block">This batch is awaiting approval. You will be able to monitor or download all transactions after you have approved the batch.</small>
+			</h4>
+			';
+			$btnproses = '
+			<div class="tabbale col-lg-6">
+				<div class="pull-right">
+					<a href="#upload" class="btn btn-primary btn-labeled btn-sm"><b><i class="icon-cloud-upload"></i></b> Proses</a>
+				</div>
+			</div>';
+		}else if($status == "completed"){
+			$status = "<span class='btn btn-primary btn-sm'>$status</span>";
+			$icon 	= "icon-shield-check";
 		}else{
 			$status = "<span class='btn btn-primary btn-sm'>$status</span>";
+			$icon 	= "icon-enlarge7";
 		}
 		$ret = '
 		<div class="page-header page-header-default">
@@ -121,11 +140,7 @@ class Batch extends MX_Controller {
 			</div>
 		</div>
 		<div class="content">
-			<h4 class="text-center content-group">
-				Batch awaiting approval
-				<small class="display-block">This batch is awaiting approval. You will be able to monitor or download all transactions after you have approved the batch.</small>
-			</h4>
-
+			'.$keterangan.'
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-flat">
@@ -150,7 +165,7 @@ class Batch extends MX_Controller {
 											<div class="panel panel-body">
 												<div class="media">
 													<div class="media-left">
-														<a><i class="icon-enlarge7 text-slate-800 icon-2x no-edge-top mt-5"></i></a>
+														<a><i class="'.$icon.' text-slate-800 icon-2x no-edge-top mt-5"></i></a>
 													</div>
 
 													<div class="media-body">
@@ -211,7 +226,10 @@ class Batch extends MX_Controller {
 				<div class="col-md-12">
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h6 class="panel-title">List of Transactions</h6>
+							<div class="tabbable col-lg-6">
+								<h6>List of Transaction</h6>
+							</div>
+							'.$btnproses.'
 						</div>
 						<div class="panel-body">							
 							<div class="row">
@@ -220,12 +238,11 @@ class Batch extends MX_Controller {
 										<table id="tableDisbursement" class="table">
 											<thead>
 												<tr>
-												<th>Status</th>
-												<th>Ammount</th>
+												<th>Ammount (IDR)</th>
 												<th>Bank Code</th>
 												<th>Account Name</th>
 												<th>Account Number</th>
-												<th>Bank Reference</th>
+												<th>Proses</th>
 												</tr>
 											</thead>
 											<tbody>

@@ -41,7 +41,7 @@ $('#regis').submit(function(event) {
 		dataType: "json",
 		success: function(data){
 			if(data.status == 200){
-				window.location.href=toUrl+"/auth/login";
+				window.location.href=toUrl+"/auth/successfull/"+data.keterangan;
             }else{
                 $("btnregist").html('<button class="login100-form-btn" type="submit">Create Account</button>');
                 $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Email was registered, make sure your email unique</p>');

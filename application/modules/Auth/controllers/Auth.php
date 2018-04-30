@@ -23,6 +23,10 @@ class Auth extends MX_Controller {
 		$this->load->view('login');
 	}
 
+	function successfull($id = null){
+		$this->load->view('successfull');
+	}
+
 	function register(){
 		$this->load->view('register');
 	}

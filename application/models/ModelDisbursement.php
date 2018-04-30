@@ -181,26 +181,44 @@
         }
 
         function getTransactionDetail($transaction_id){
+            $datax				= $this->getTransaction($transaction_id);
+            list($referencex,$fullNamex,$created_dttmx,$statusx)=$datax;
             $sql    = " SELECT a.* FROM ".$this->transactionDetail." as a"
                     . " WHERE a.transaction_id = '$transaction_id'";
             $query  = $this->db->query($sql);
             $data = "";
             if($query->num_rows()>0){
                 foreach($query->result() as $row){
+                    $status = "";
                     if($row->status == "active"){
-                        $status = "Need Approval";
+                        $status = '
+                        <div class="radio" style="display:inline-block; margin-right: 10px">
+                            <label><input type="radio" name=proses['.$row->id.'] value="proses"  class="control-primary" checked="checked">Yes</label>
+                        </div>
+                        <div class="radio" style="display:inline-block;">
+                            <label><input type="radio" name=proses['.$row->id.'] value="not_proses" class="control-primary">No</label>
+                        </div>';
+                    }else if($row->status == "pending" AND $statusx != "completed"){                 
+                        $status = '
+                        <div class="radio" style="display:inline-block; margin-right: 10px">
+                            <label><input type="radio" name=proses['.$row->id.'] value="proses"  class="control-primary">Yes</label>
+                        </div>
+                        <div class="radio" style="display:inline-block">
+                            <label><input type="radio" name=proses['.$row->id.'] value="not_proses" class="control-primary" checked="checked">No</label>
+                        </div>';
+                    }else if($row->status == "completed"){                      
+                        $status = '<i class="icon-checkmark4 text-slate-800 icon-2x no-edge-top mt-5"></i>';
                     }else{
-                        $status = "$row->status";
+                        $status = '';
                     }
                     $account_number = $this->aes->decrypt_aes256($row->account_number);
                     $data .= "
                         <tr>
-                        <td><span class='btn btn-primary' style='font-size:9pt'>$status</span></td>
-                        <td>$row->amount</td>
-                        <td>$row->bank_code</td>
-                        <td>$row->account_holder_name</td>
-                        <td>$account_number</td>
-                        <td></td>
+                            <td>".number_format($row->amount)."</td>
+                            <td>$row->bank_code</td>
+                            <td>$row->account_holder_name</td>
+                            <td>$account_number</td>
+                            <td>$status</td>
                        </tr>
                     ";
                 }
@@ -258,7 +276,7 @@
                                         <th>Date Uploaded</th>
                                         <th>Uploader</th>
                                         <th>Qty Transaction</th>
-                                        <th>Total</th>
+                                        <th>Total (IDR)</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -292,7 +310,7 @@
                         LEFT JOIN '.$this->transactionDetail.' as c on c.transaction_id = a.transaction_id
                         WHERE a.company_id = ? AND a.status in ? GROUP BY a.transaction_id';
             // $sql    = 'SELECT * FROM '.$this->transactionTable.' WHERE company_id = ?';
-            $query  =$this->db->query($sql, array($company_id,array("success","approved")));
+            $query  =$this->db->query($sql, array($company_id,array("completed","approved")));
             if($query->num_rows()>0){
                 $data = "";
                 foreach($query->result() as $row){
@@ -303,6 +321,7 @@
                     }else{
                         $status = "$row->status";
                     }
+					$transaction_id = $this->aes->encrypt_aes256API($row->transaction_id);
                     $data .= "
                         <tr>
                         <td>$row->reference</td>
@@ -310,7 +329,7 @@
                         <td>$row->fullName</td>
                         <td>$row->jml_transaksi</td>
                         <td>$total</td>
-                        <td><button onClick='showDetailBatch(\"$row->transaction_id\")' class='btn gradient-45deg-red-pink' style='font-size:9pt'>$status</button></td></tr>
+                        <td><button onClick='showDetailBatch(\"$transaction_id\")' class='btn btn-info' style='font-size:9pt'>$status</button></td></tr>
                     ";
                 }
 
@@ -328,7 +347,7 @@
                                         <th>Date Uploaded</th>
                                         <th>Uploader</th>
                                         <th>Qty Transaction</th>
-                                        <th>Total</th>
+                                        <th>Total (IDR)</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>

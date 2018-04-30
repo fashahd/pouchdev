@@ -32,8 +32,8 @@
             );
             $this->db->trans_begin();
             $this->db->insert('pouch_masteremployeecredential', $data);      
-            $this->db->insert('pouch_mastercompanydata', $dataCompany);      
-            $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
+            // $this->db->insert('pouch_mastercompanydata', $dataCompany);      
+            // $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
             if(count($permission)>0){
                 for($i = 0; $i<count($permission);$i++){
                     $dataPermission = array(
@@ -51,7 +51,7 @@
             } else {
                 //if everything went right, commit the data to the database
                 $this->db->trans_commit();
-                return json_encode(array("status"=>200,"keterangan"=>"Create account successfull"));
+                return json_encode(array("status"=>200,"keterangan"=>$this->aes->encrypt_aes256($userID."_".date("Y-m-d"))));
             }
         }
 

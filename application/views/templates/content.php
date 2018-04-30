@@ -153,7 +153,9 @@
 	
 	<script src="<?=base_url()?>appsources/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="<?=base_url()?>appsources/js/custom-script.js"></script> 
-	<script src="<?=base_url()?>appsources/js/jquery.form.js"></script> 
+	<script src="<?=base_url()?>appsources/js/jquery.form.js"></script>
+	<script src='<?=base_url()?>appsources/js/plugins/forms/styling/uniform.min.js'></script>
+	<script src='<?=base_url()?>appsources/js/pages/form_checkboxes_radios.js'></script>; 
             
 	<script src="<?=base_url()?>appsources/pouch/default.js"></script>      
 	<script src="<?=base_url()?>appsources/pouch/module/batch.js"></script>  
