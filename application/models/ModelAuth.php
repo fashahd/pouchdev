@@ -18,7 +18,7 @@
                 'email'         =>$email,
                 'phoneNumber'   =>$phone,
                 'company_id'    =>$companyID,
-                'status'        =>'active'
+                'status'        =>'unactive'
             );
             $dataCompany = array(
                 'company_id'     =>$companyID, 

@@ -12,6 +12,7 @@ $('#login').submit(function(event) {
 		data : form.serialize(),
 		// dataType: "json",
 		success: function(data){
+			console.log(data);
 			// alert(data);
 			// return;
 			if(data =="Sukses"){

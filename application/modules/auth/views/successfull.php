@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Hinata | App Landing Page </title>
+    <title> Mypouch | Registration Success </title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link rel="icon" href="app.ico">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/lity.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/gradient_colors/theme_color_1.css" id="color-option">
+    <link rel='icon' type='image/png' href='<?=base_url()?>appsources/mypouch-favicon.png'/>
+    <link rel="stylesheet" href="<?=base_url()?>appsources/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/swiper.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/animate.css">
+    <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/lity.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/style.css">
+    <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/gradient_colors/theme_color_1.css" id="color-option">
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
@@ -22,24 +22,25 @@
 </head>
 
 <body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="5" class="scrollspy-example without_bg_images">
-
 <!-- Header
 ========================================-->
-<header class="active-navbar appsLand-header" id="home">
+<header class="active-navbar appsLand-header triangle-down-bg-2" id="home">
     <div class="app-overlay">
         <div class="header-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7 col-md-8">
+                    <div class="col-lg-12 col-md-8">
                         <div class="site-intro-content">
-                            <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">Hinata<br> PROMOTE YOUR APP</h1>
-                            <p class="lead wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
-                                The Best Way To Promote Your App And Make A lot Of Selling, In HinataYou Will be Able To Use An Awesome, Clean And Responsive Design To Market Your App
+                            <h1 class="wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0s">
+                                Registration<br> Success
+                            </h1>
+                            <p class="lead wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.25s">
+                                Please check your email address for confirmation
                             </p>
-                            <ul class="list-inline list-unstyled header-links">
+                            <ul class="list-inline list-unstyled header-links text-center">
                                 <li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
-                                    <a href="#download" class="appsLand-btn appsLand-btn-gradient btn-inverse scrollLink">
-                                        <span><i class="fa fa-download"></i> Download</span>
+                                    <a href="https://dashboard.mypouch.co.id" class="appsLand-btn appsLand-btn-gradient btn-inverse scrollLink">
+                                        <span><i class="fa fa-user"></i> Login</span>
                                     </a>
                                 </li>
                                 <li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.75s">
@@ -50,9 +51,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-lg-offset-1 col-md-4 hidden-xs hidden-sm">
+                    <div class="col-lg-5 col-md-4 hidden-xs hidden-sm">
                         <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
-                            <img alt="" src="images/mockups/02.png" class="img-responsive">
+                            <img alt="" src="images/mockups/01_2.png" class="img-responsive">
                         </div>
                     </div>
                 </div>
@@ -67,246 +68,47 @@
 
     <!-- Mini Feature Section
     ========================================-->
-    <section class="mini-feature__style-2 section-without-title">
+    <section class="mini-feature section-without-title">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
+                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
                     <div class="mini-feature-box">
                         <div class="icon-box">
-                            <img alt="" src="images/flat-icons/01.png">
-                            <img alt="" src="images/flat-icons/01.png">
+                            <i class="fa fa-send "></i>
                         </div>
-                        <div class="data-box">
-                            <h3>Clean Code</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda hic inventore
-                                itaque,
-                            </p>
-                        </div>
+                        <h3>Realtime</h3>
+                        <p>
+                        Instantly send any a mount to any bank account automatically via API
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
+                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
+                    <div class="mini-feature-box active">
+                        <div class="icon-box">
+                            <i class="fa fa-refresh"></i>
+                        </div>
+                        <h3>Secure, Simple and Realtime</h3>
+                    </div>
+                </div>
+                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
                     <div class="mini-feature-box">
                         <div class="icon-box">
-                            <img alt="" src="images/flat-icons/02.png">
-                            <img alt="" src="images/flat-icons/02.png">
+                            <i class="fa fa-book"></i>
                         </div>
-                        <div class="data-box">
-                            <h3>Color Changer</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda hic inventore
-                                itaque,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <div class="mini-feature-box">
-                        <div class="icon-box">
-                            <img alt="" src="images/flat-icons/03.png">
-                            <img alt="" src="images/flat-icons/03.png">
-                        </div>
-                        <div class="data-box">
-                            <h3>Creative Design</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda hic inventore
-                                itaque,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
-                    <div class="mini-feature-box">
-                        <div class="icon-box">
-                            <img alt="" src="images/flat-icons/04.png">
-                            <img alt="" src="images/flat-icons/04.png">
-                        </div>
-                        <div class="data-box">
-                            <h3>Responsive Design</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda hic inventore
-                                itaque,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
-                    <div class="mini-feature-box">
-                        <div class="icon-box">
-                            <img alt="" src="images/flat-icons/05.png">
-                            <img alt="" src="images/flat-icons/05.png">
-                        </div>
-                        <div class="data-box">
-                            <h3>Fast Update</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda hic inventore
-                                itaque,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <div class="mini-feature-box">
-                        <div class="icon-box">
-                            <img alt="" src="images/flat-icons/06.png">
-                            <img alt="" src="images/flat-icons/06.png">
-                        </div>
-                        <div class="data-box">
-                            <h3>Quick Start</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias assumenda hic inventore
-                                itaque,
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ScreenShots Section
-    ========================================-->
-    <section class="screenShots" id="screenShots">
-        <div>
-            <div class="section-title style-gradient wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
-                <h2>
-                    ScreenShots
-                </h2>
-                <span><span></span></span>
-            </div>
-            <div class="app-screen">
-                <div class="mobile-mockup text-center">
-                    <img alt="" src="images/mobile__.png">
-                </div>
-                <!-- Slider main container -->
-                <div class="swiper-container wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/01.jpg" class="img-responsive">
-                        </div>
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/02.jpg" class="img-responsive">
-                        </div>
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/03.jpg" class="img-responsive">
-                        </div>
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/04.jpg" class="img-responsive">
-                        </div>
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/05.jpg" class="img-responsive">
-                        </div>
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/06.jpg" class="img-responsive">
-                        </div>
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/07.jpg" class="img-responsive">
-                        </div>
-                        <div class="swiper-slide">
-                            <img alt="" src="images/slider/08.jpg" class="img-responsive">
-                        </div>
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="custom_slider_arrows">
-                        <ul class="list-inline list-unstyled">
-                            <li>
-                                <button class="appsLand-btn appsLand-btn-gradient screenShots__style-1__btn-prev">
-                                    <span><i class="fa fa-angle-left"></i></span>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="appsLand-btn appsLand-btn-gradient screenShots__style-1__btn-next">
-                                    <span><i class="fa fa-angle-right"></i></span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section
-    ========================================-->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title style-gradient wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
-                <h2>
-                    Feature
-                </h2>
-                <span><span></span></span>
-            </div>
-            <div class="appInfo-container">
-                <div class="row appInfo-row">
-                    <div class="col-md-6 col-md-offset-1 col-sm-7">
-                        <div class="appInfo-data wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
-                            <h2>Easy To Use</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid dolorem eaque earum error maiores nemo nihil non, nulla officia optio pariatur quam, quisquam, quod rem reprehenderit tempore velit vitae.
-                            </p>
-                            <a href="#" class="appsLand-btn appsLand-btn-gradient"><span>Read More</span></a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-5 hidden-xs">
-                        <div class="img-box wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
-                            <img alt="" src="images/mockups/02.png" class="img-responsive">
-                        </div>
-                    </div>
-                </div>
-                <div class="row appInfo-row">
-                    <div class="col-md-4 col-md-offset-1 col-sm-5 hidden-xs">
-                        <div class="img-box wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
-                            <img alt="" src="images/mockups/03.png" class="img-responsive">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-7">
-                        <div class="appInfo-data wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
-                            <h2>Modern Design</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid dolorem eaque earum error maiores nemo nihil non, nulla officia optio pariatur quam, quisquam, quod rem reprehenderit tempore velit vitae.
-                            </p>
-                            <a href="#" class="appsLand-btn appsLand-btn-gradient"><span>Read More</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download Section
-    ========================================-->
-    <section class="download section-bg-img" id="download">
-        <div class="app-overlay">
-            <div class="container">
-                <div class="section-title style-gradient white-color wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
-                    <h2>
-                        Download Hinata
-                    </h2>
-                    <span><span></span></span>
-                </div>
-                <div class="download-buttons">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="wow fadeInUp first-download-btn" data-wow-duration="1s" data-wow-delay="0.25s">
-                                <a href="#" class="appsLand-btn appsLand-btn-gradient appsLand-btn-larg"><span><i class="fa fa-windows"></i> Windows Store</span></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="wow fadeInUp second-download-btn" data-wow-duration="1s" data-wow-delay="0.5s">
-                                <a href="#" class="appsLand-btn appsLand-btn-gradient appsLand-btn-larg"><span><i class="fa fa-android"></i> Google Store</span></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="wow fadeInUp third-download-btn" data-wow-duration="1s" data-wow-delay="0.75s">
-                                <a href="#" class="appsLand-btn appsLand-btn-gradient appsLand-btn-larg"><span><i class="fa fa-apple"></i> Apple Store</span></a>
-                            </div>
-                        </div>
+                        <h3>Simple</h3>
+                        <p>
+                            Daily Reporting and reconciliation
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </main>
+
+<!-- Scroll To Top
+========================================-->
+<div class="scrollToTop appsLand-btn appsLand-btn-gradient"><span><i class="fa fa-angle-up"></i></span></div>
 
 <!-- Loading
 ========================================-->
@@ -317,20 +119,38 @@
     </div>
 </div>
 
+<!-- Footer
+========================================-->
+<footer class="apps-footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="apps-short-info">
+                <a href="#">
+                    <img style="width:200px" alt="" src="<?=base_url()?>appsources/mypouch-white.png">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>All Rights Reserved © <?=date("Y")?> <a href="https://mypouch.co.id/">Mypouch</a></p>
+        </div>
+    </div>
+</footer>
 
 <!-- start the script -->
-<script src="js/jquery-2.2.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/swiper.jquery.min.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/jquery.countTo.min.js"></script>
-<script src="js/lity.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/jquery-2.2.4.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/bootstrap.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/swiper.jquery.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/wow.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/jquery.countTo.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/lity.min.js"></script>
 
-<script src="js/plugins.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/plugins.js"></script>
 
-<script src="js/jquery.ajaxchimp.min.js"></script>
-<script src="js/jquery.ajaxchimp.langs.min.js"></script>
-<script src="js/ajax.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/jquery.ajaxchimp.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/jquery.ajaxchimp.langs.min.js"></script>
+<script src="<?=base_url()?>appsources/applanding/js/ajax.js"></script>
 <!-- end the script -->
 </body>
 
