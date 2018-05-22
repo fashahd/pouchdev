@@ -13,14 +13,19 @@ $('#login').submit(function(event) {
 		// dataType: "json",
 		success: function(data){
 			console.log(data);
-			// alert(data);
-			// return;
 			if(data =="Sukses"){
 				window.location.href=toUrl+"/dashboard/cash";
 				return;
-			}else{
+			}
+			if(data == "unactive"){
+                $("#btnlogin").html('<button class="login100-form-btn" type="submit">Login</button>');
+                $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Unverified Email</p>');
+				return;
+			}
+			if(data == "error"){
                 $("#btnlogin").html('<button class="login100-form-btn" type="submit">Login</button>');
                 $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Email not registered</p>');
+				return;
 			}
 		},error: function(xhr, ajaxOptions, thrownError){            
 			alert(xhr.responseText);

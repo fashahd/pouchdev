@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/lity.min.css">
     <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/style.css">
     <link rel="stylesheet" href="<?=base_url()?>appsources/applanding/css/gradient_colors/theme_color_1.css" id="color-option">
+    <link rel="stylesheet" href="<?=base_url()?>appsources/sweetalert/dist/sweetalert.css"  type="text/css">
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
@@ -36,7 +37,8 @@
                                     <img style="width:200px" alt="" src="<?=base_url()?>appsources/mypouch-white.png">
                                     <h4 class="text-center">Upload Your Document Here</h4>
                                     <div class="custom-input-group wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
-                                        <input required id="mc-email" type="file" class="form-control" placeholder="Email">
+                                        <input required name="doc_pendukung" type="file" class="form-control" placeholder="Email">
+                                        <input type="hidden" name="userID" value="<?=$userID?>" id="userID"/>
                                         <button class="appsLand-btn appsLand-btn-gradient subscribe-btn"><span>Upload</span></button>
                                         <div class="clearfix"></div>
                                     </div>
@@ -85,12 +87,14 @@
 <script src="<?=base_url()?>appsources/applanding/js/wow.min.js"></script>
 <script src="<?=base_url()?>appsources/applanding/js/jquery.countTo.min.js"></script>
 <script src="<?=base_url()?>appsources/applanding/js/lity.min.js"></script>
+<script src='<?=base_url()?>appsources/sweetalert/dist/sweetalert.min.js'></script>
 
 <script src="<?=base_url()?>appsources/applanding/js/plugins.js"></script>
 
 <script src="<?=base_url()?>appsources/applanding/js/jquery.ajaxchimp.min.js"></script>
 <script src="<?=base_url()?>appsources/applanding/js/jquery.ajaxchimp.langs.min.js"></script>
 <script src="<?=base_url()?>appsources/applanding/js/ajax.js"></script>
+<script src="<?=base_url()?>appsources/pouch/default.js"></script>
 <!-- end the script -->
 </body>
 
@@ -99,6 +103,7 @@
     $('#uploadterm').submit(function(event) {
         event.preventDefault();
         var formData = new FormData($(this)[0]);
+        formData.append('userID', $("#userID").val());
         $("#btnBatch").html('<span class="btn gradient-45deg-light-blue-cyan">Please Wait .....</span>');
         $.ajax({
             type : 'POST',
@@ -108,23 +113,23 @@
             cache: false,
             contentType: false,
             processData: false,
+		    dataType: "json",
             success: function(data){
-            if(data == 200){
-                swal({    
-                title: "Good Job !",
-                text: "Uploaded Success",
-                type: "success",
-                closeOnConfirm: false },
-                function(){
-                window.location.href=toUrl+"/batch";
-                });
-            }else if(data == 201){
-                swal("Ooopps!", "Please Choose File", "warning");
-                $("#btnBatch").html('<button class="btn gradient-45deg-light-blue-cyan">Upload Batch</button>');
-            }else{
-                swal("Ooopps!", "Please Try Again Later", "error");
-                $("#btnBatch").html('<button class="btn gradient-45deg-light-blue-cyan">Upload Batch</button>');
-            }
+                // alert(JSON.stringify(data));
+                if(data.status == 401){
+                    swal("Ooopps!", data.error, "warning");
+                }
+                if(data.status == 200){
+                    swal({    
+                        title: "Yeaaaay !",
+                        text: data.error,
+                        type: "success",
+                        closeOnConfirm: false },
+                        function(){
+                        window.location.href=toUrl+"/auth/login";
+                    });
+                    return;
+                }
             },error: function(xhr, ajaxOptions, thrownError){            
             alert(xhr.responseText);
             }

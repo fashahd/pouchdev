@@ -1,6 +1,45 @@
 <?php
 	class ModelAuth extends CI_Model {
 
+        function sendMailUpload($userID){
+            $config = Array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'sakukudigitalindonesia@gmail.com', // change it to yours
+                'smtp_pass' => 'mypouch2018', // change it to yours
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'wordwrap' => TRUE,
+                'mailtype' => 'html'
+            );
+            $sql    = "SELECT * FROM pouch_masteremployeecredential where userID = ?";
+            $query  = $this->db->query($sql,array($userID));
+            if($query->num_rows()>0){
+                $row    = $query->row();
+                $name   = $row->fullName;
+                $email  = $row->email; 
+
+                $data["name"] = $name;
+                $data["userID"] = $this->aes->encrypt_aes256($userID);
+                $message = $this->load->view('templates/mailsenderupload',$data,true);
+                $this->load->library('email', $config);
+                $this->email->set_newline("\r\n");
+                $this->email->from('info@mypouch.co.id'); // change it to yours
+                $this->email->to($email);// change it to yours
+                $this->email->subject('Notification | Mypouch Payment Gateway');
+                $this->email->message($message);
+                if($this->email->send())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         function sendMail($name,$email,$userID)
         {
             $config = Array(
@@ -109,11 +148,12 @@
 
 		function validation($email,$password){
             $encrypted_pwd = $this->aes->encrypt_aes256($_POST["password"]);
-            $sql    = " SELECT a.*, a.company_id, b.company_logo, b.company_name FROM pouch_masteremployeecredential as a"
+            $sql    = " SELECT a.*, a.company_id, b.company_logo, b.company_name, a.status, a.emailVerified "
+                    . " FROM pouch_masteremployeecredential as a"
                     . " LEFT JOIN pouch_mastercompanydata as b on b.company_id = a.company_id"
                     . " WHERE a.email = ? AND a.password = ?";
-            // return $sql;
             $query  = $this->db->query($sql,array($email,$encrypted_pwd));
+            // return $this->db->last_query();
             if($query->num_rows()>0){
                 $row    = $query->row();
                 $userID = $row->userID;
@@ -131,6 +171,18 @@
                     "company_logo" => $company_logo,
                     "company_name"  => $company_name
                 );
+
+                if($row->emailVerified == 0){
+                    $data = array(
+                        "status"    => "unverified"
+                    );
+                }
+
+                if($row->status == "unactive"){
+                    $data = array(
+                        "status"    => "unactive"
+                    );
+                }
             }else{
                 $data = array(
                     "status"    => "error"

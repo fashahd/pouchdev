@@ -31,10 +31,15 @@ class Auth extends MX_Controller {
 		$this->load->view('register');
 	}
 
+	function status(){
+		
+	}
+
 	function confirmation($userID = null){
 		if($userID != ""){
+			$this->aes->decrypt_aes256($userID);
 			$data["userID"] = $userID;
-			$this->load->view("confirmation");
+			$this->load->view("confirmation",$data);
 		}
 	}
 
@@ -70,14 +75,19 @@ class Auth extends MX_Controller {
 		}
 		
 		$auth 	= $this->ModelAuth->validation($_POST["email"],$_POST["password"]);
-		// echo $auth;
-		// return;
 		$data = json_decode($auth, true);
 		if($data["status"] == "error"){
 			echo "error";
 			return;
 		}
-
+		if($data["status"] == "unverified"){
+			echo "unverified";
+			return;
+		}
+		if($data["status"] == "unactive"){
+			echo "unactive";
+			return;
+		}
 		if($data["status"] == "sukses"){			
 			$this->session->set_userdata("sessUserID",$data["userID"]);
 			$this->session->set_userdata("sessEmail",$data["email"]);
@@ -96,5 +106,79 @@ class Auth extends MX_Controller {
 		$this->session->unset_userdata("sessEmail");
 
 		header("location:".base_url()."auth/login");
+	}
+
+	function uploadterm(){
+		$userID = $this->aes->decrypt_aes256($_POST["userID"]);
+		$sql 	="SELECT * FROM pouch_masteremployeecredential WHERE userID = '$userID'";
+		$query	= $this->db->query($sql);
+		if($query->num_rows()>0){
+			$row = $query->row();
+			if($row->doc != ''){
+				$output["status"] = 401;
+				$output["error"] = "Document Already Exist";
+
+				echo json_encode($output);
+				return;
+			}
+		}
+
+		if (isset($_FILES['doc_pendukung'])) {
+			set_time_limit(0);
+			$allowedImageType = array(
+				"application/pdf"
+			);
+			if ($_FILES['doc_pendukung']["error"] > 0) {
+				$output["status"] = 401;
+				$output['error'] = "Error in File";
+			} elseif (!in_array($_FILES['doc_pendukung']["type"], $allowedImageType)) {
+				$output["status"] = 401;
+				$output['error'] = "You can only upload PDF file";
+			} elseif (round($_FILES['doc_pendukung']["size"] / 1024) > 4096) {
+				$output["status"] = 401;
+				$output['error'] = "You can upload file size up to 4 MB";
+			} else {
+				$path[0]     = $_FILES['doc_pendukung']['tmp_name'];
+				$file        = pathinfo($_FILES['doc_pendukung']['name']);
+				$fileType    = $file["extension"];
+				$desiredExt  = 'pdf';
+				$fileNameNew = rand(333, 999) . time() . ".$desiredExt";
+				
+				$url = 'appsources/doc/contract/'.$fileNameNew;
+				$config['upload_path']          = './appsources/doc/contract/';
+				$config['file_name'] 			= $fileNameNew;
+				$config['allowed_types'] = 'pdf';
+				$config['max_size'] = 1024 * 4;
+				// $config['encrypt_name'] = TRUE;
+		
+				$this->load->library('upload', $config);
+		
+				if (!$this->upload->do_upload("doc_pendukung"))
+				{
+					$status = 'error';
+					$output['status'] = 401;
+					$output['error'] = "Uploading File Failed";
+				}
+				else
+				{
+					$this->load->Model("ModelAuth");
+					$data 	= $this->upload->data();
+					$sql 	= "UPDATE pouch_masteremployeecredential SET doc='$fileNameNew' WHERE userID = '$userID'";
+					$query 	= $this->db->query($sql);
+					if($query){
+						$this->ModelAuth->sendMailUpload($userID);
+						$output['status'] = 200;
+						$output['error'] = "Uploading File Success";
+					}
+				}
+				@unlink($_FILES[$file_element_name]);
+			}
+		}else{			
+			$output['status']       = 401;
+			$output['error'] = "Uploading File Failed";
+		}
+
+		echo json_encode($output);
+		return;
 	}
 }

@@ -41,10 +41,9 @@
 					<td>
 						
 						<h3>Thanks, <?=$name?></h3>
-						<p class="lead">One step closer to join us, please download and fill the document below.</p>
-						<a class="btn" href="<?=base_url()?>appsources/doc/form/form_registration_pouch.docx">Download</a>
+						<p class="lead">Your document has been uploaded for verification, then you will receive an email reply from our system.</p>
 						<p class="lead">After you fill the document, please upload to this link :</p>
-						<a href="<?=base_url()?>auth/confirmation/<?=$userID?>">Open Link</a>					
+						<a href="<?=base_url()?>auth/status/<?=$userID?>">Open Link</a>					
 						<br/>
 						<br/>
 					</td>
