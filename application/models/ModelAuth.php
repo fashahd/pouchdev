@@ -1,6 +1,40 @@
 <?php
 	class ModelAuth extends CI_Model {
 
+        function sendMail($name,$email,$userID)
+        {
+            $config = Array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'sakukudigitalindonesia@gmail.com', // change it to yours
+                'smtp_pass' => 'mypouch2018', // change it to yours
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'wordwrap' => TRUE,
+                'mailtype' => 'html'
+            );
+
+            // $message = $this->load->view("mailsender");
+            $data["name"] = $name;
+            $data["userID"] = $this->aes->encrypt_aes256($userID);
+            $message = $this->load->view('templates/mailsender',$data,true);
+            $this->load->library('email', $config);
+            $this->email->set_newline("\r\n");
+            $this->email->from('info@mypouch.co.id'); // change it to yours
+            $this->email->to($email);// change it to yours
+            $this->email->subject('Confirmation | Mypouch Payment Gateway');
+            $this->email->message($message);
+            if($this->email->send())
+            {
+                return "sukses";
+            }
+            else
+            {
+                return "gagal";
+            }
+        }
+
         function createUser($email,$password,$name,$phone,$business_name,$business_email){
             $sql    = "SELECT * FROM pouch_masteremployeecredential where email = ?";
             $query  = $this->db->query($sql, array($email));
@@ -32,8 +66,8 @@
             );
             $this->db->trans_begin();
             $this->db->insert('pouch_masteremployeecredential', $data);      
-            // $this->db->insert('pouch_mastercompanydata', $dataCompany);      
-            // $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
+            $this->db->insert('pouch_mastercompanydata', $dataCompany);      
+            $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
             if(count($permission)>0){
                 for($i = 0; $i<count($permission);$i++){
                     $dataPermission = array(
@@ -50,6 +84,10 @@
                 return json_encode(array("status"=>400,"keterangan"=>"Pendaftaran Gagal, Harap Hubungi Customer Service Kami"));
             } else {
                 //if everything went right, commit the data to the database
+                $sendMail = $this->sendMail($name,$email,$userID);
+                if($sendMail == "gagal"){
+                    return json_encode(array("status"=>400,"keterangan"=>"Terjadi Kesalahan, Harap Hubungi Customer Service Kami"));
+                }
                 $this->db->trans_commit();
                 return json_encode(array("status"=>200,"keterangan"=>$this->aes->encrypt_aes256($userID."_".date("Y-m-d"))));
             }

@@ -24,92 +24,32 @@
 <body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="5" class="scrollspy-example without_bg_images">
 <!-- Header
 ========================================-->
-<header class="active-navbar appsLand-header triangle-down-bg-2" id="home">
+<header class="active-navbar appsLand-header" id="home">
     <div class="app-overlay">
         <div class="header-content">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-md-8">
-                        <div class="site-intro-content">
-                            <h1 class="wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0s">
-                                Registration<br> Success
-                            </h1>
-                            <p class="lead wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.25s">
-                                Please check your email address for confirmation
-                            </p>
-                            <ul class="list-inline list-unstyled header-links text-center">
-                                <li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
-                                    <a href="https://dashboard.mypouch.co.id" class="appsLand-btn appsLand-btn-gradient btn-inverse scrollLink">
-                                        <span><i class="fa fa-user"></i> Login</span>
-                                    </a>
-                                </li>
-                                <li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.75s">
-                                    <a href="#contact" class="appsLand-btn appsLand-btn-gradient btn-inverse scrollLink">
-                                        <span><i class="glyphicon glyphicon-phone-alt"></i> Contact Us</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-4 hidden-xs hidden-sm">
-                        <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
-                            <img alt="" src="images/mockups/01_2.png" class="img-responsive">
-                        </div>
+                        <form id="uploadterm" class="en-form" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center">
+                                    <img style="width:200px" alt="" src="<?=base_url()?>appsources/mypouch-white.png">
+                                    <h4 class="text-center">Upload Your Document Here</h4>
+                                    <div class="custom-input-group wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
+                                        <input required id="mc-email" type="file" class="form-control" placeholder="Email">
+                                        <button class="appsLand-btn appsLand-btn-gradient subscribe-btn"><span>Upload</span></button>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <label for="mc-email"></label>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
-
-<!-- Main Content
-========================================-->
-<main class="entry-main">
-
-    <!-- Mini Feature Section
-    ========================================-->
-    <section class="mini-feature section-without-title">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
-                    <div class="mini-feature-box">
-                        <div class="icon-box">
-                            <i class="fa fa-send "></i>
-                        </div>
-                        <h3>Realtime</h3>
-                        <p>
-                        Instantly send any a mount to any bank account automatically via API
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
-                    <div class="mini-feature-box active">
-                        <div class="icon-box">
-                            <i class="fa fa-refresh"></i>
-                        </div>
-                        <h3>Secure, Simple and Realtime</h3>
-                    </div>
-                </div>
-                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <div class="mini-feature-box">
-                        <div class="icon-box">
-                            <i class="fa fa-book"></i>
-                        </div>
-                        <h3>Simple</h3>
-                        <p>
-                            Daily Reporting and reconciliation
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<!-- Scroll To Top
-========================================-->
-<div class="scrollToTop appsLand-btn appsLand-btn-gradient"><span><i class="fa fa-angle-up"></i></span></div>
-
 <!-- Loading
 ========================================-->
 <div class="loading">
@@ -126,7 +66,7 @@
         <div class="container">
             <div class="apps-short-info">
                 <a href="#">
-                    <img style="width:200px" alt="" src="<?=base_url()?>appsources/mypouch-white.png">
+                    
                 </a>
             </div>
         </div>
@@ -155,3 +95,39 @@
 </body>
 
 </html>
+<script>
+    $('#uploadterm').submit(function(event) {
+        event.preventDefault();
+        var formData = new FormData($(this)[0]);
+        $("#btnBatch").html('<span class="btn gradient-45deg-light-blue-cyan">Please Wait .....</span>');
+        $.ajax({
+            type : 'POST',
+            url  : toUrl+"/auth/uploadterm",
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+            if(data == 200){
+                swal({    
+                title: "Good Job !",
+                text: "Uploaded Success",
+                type: "success",
+                closeOnConfirm: false },
+                function(){
+                window.location.href=toUrl+"/batch";
+                });
+            }else if(data == 201){
+                swal("Ooopps!", "Please Choose File", "warning");
+                $("#btnBatch").html('<button class="btn gradient-45deg-light-blue-cyan">Upload Batch</button>');
+            }else{
+                swal("Ooopps!", "Please Try Again Later", "error");
+                $("#btnBatch").html('<button class="btn gradient-45deg-light-blue-cyan">Upload Batch</button>');
+            }
+            },error: function(xhr, ajaxOptions, thrownError){            
+            alert(xhr.responseText);
+            }
+        });
+    });
+</script>

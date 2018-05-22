@@ -45,7 +45,7 @@ $('#regis').submit(function(event) {
 				window.location.href=toUrl+"/auth/successfull/"+data.keterangan;
             }else{
                 $("btnregist").html('<button class="login100-form-btn" type="submit">Create Account</button>');
-                $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> Email was registered, make sure your email unique</p>');
+                $("#errormsg").html('<p><i class="fa fa-exclamation-circle"></i> '+data.keterangan+'</p>');
             }
 		},error: function(xhr, ajaxOptions, thrownError){            
 			alert(xhr.responseText);
