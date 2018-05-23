@@ -4,16 +4,16 @@
         function sendMailUpload($userID){
             $config = Array(
                 'protocol' => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_host' => 'ssl://mail.mypouch.co.id',
                 'smtp_port' => 465,
-                'smtp_user' => 'sakukudigitalindonesia@gmail.com', // change it to yours
+                'smtp_user' => 'info@mypouch.co.id', // change it to yours
                 'smtp_pass' => 'mypouch2018', // change it to yours
                 'mailtype' => 'html',
                 'charset' => 'utf-8',
                 'wordwrap' => TRUE,
                 'mailtype' => 'html'
             );
-            $sql    = "SELECT * FROM pouch_masteremployeecredential where userID = ?";
+            $sql    = "SELECT * FROM pouch_masteremployeecredential where md5(userID) = ?";
             $query  = $this->db->query($sql,array($userID));
             if($query->num_rows()>0){
                 $row    = $query->row();
@@ -21,7 +21,7 @@
                 $email  = $row->email; 
 
                 $data["name"] = $name;
-                $data["userID"] = $this->aes->encrypt_aes256($userID);
+                $data["userID"] = $userID;
                 $message = $this->load->view('templates/mailsenderupload',$data,true);
                 $this->load->library('email', $config);
                 $this->email->set_newline("\r\n");
@@ -44,9 +44,9 @@
         {
             $config = Array(
                 'protocol' => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_host' => 'ssl://mail.mypouch.co.id',
                 'smtp_port' => 465,
-                'smtp_user' => 'sakukudigitalindonesia@gmail.com', // change it to yours
+                'smtp_user' => 'info@mypouch.co.id', // change it to yours
                 'smtp_pass' => 'mypouch2018', // change it to yours
                 'mailtype' => 'html',
                 'charset' => 'utf-8',
@@ -56,7 +56,7 @@
 
             // $message = $this->load->view("mailsender");
             $data["name"] = $name;
-            $data["userID"] = $this->aes->encrypt_aes256($userID);
+            $data["userID"] = md5($userID);
             $message = $this->load->view('templates/mailsender',$data,true);
             $this->load->library('email', $config);
             $this->email->set_newline("\r\n");
@@ -105,8 +105,8 @@
             );
             $this->db->trans_begin();
             $this->db->insert('pouch_masteremployeecredential', $data);      
-            $this->db->insert('pouch_mastercompanydata', $dataCompany);      
-            $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
+            // $this->db->insert('pouch_mastercompanydata', $dataCompany);      
+            // $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
             if(count($permission)>0){
                 for($i = 0; $i<count($permission);$i++){
                     $dataPermission = array(

@@ -37,7 +37,6 @@ class Auth extends MX_Controller {
 
 	function confirmation($userID = null){
 		if($userID != ""){
-			$this->aes->decrypt_aes256($userID);
 			$data["userID"] = $userID;
 			$this->load->view("confirmation",$data);
 		}
@@ -109,8 +108,8 @@ class Auth extends MX_Controller {
 	}
 
 	function uploadterm(){
-		$userID = $this->aes->decrypt_aes256($_POST["userID"]);
-		$sql 	="SELECT * FROM pouch_masteremployeecredential WHERE userID = '$userID'";
+		$userID = $_POST["userID"];
+		$sql 	="SELECT * FROM pouch_masteremployeecredential WHERE md5(userID) = '$userID'";
 		$query	= $this->db->query($sql);
 		if($query->num_rows()>0){
 			$row = $query->row();
@@ -163,15 +162,14 @@ class Auth extends MX_Controller {
 				{
 					$this->load->Model("ModelAuth");
 					$data 	= $this->upload->data();
-					$sql 	= "UPDATE pouch_masteremployeecredential SET doc='$fileNameNew' WHERE userID = '$userID'";
+					$sql 	= "UPDATE pouch_masteremployeecredential SET doc='$fileNameNew' WHERE md5(userID) = '$userID'";
 					$query 	= $this->db->query($sql);
 					if($query){
 						$this->ModelAuth->sendMailUpload($userID);
 						$output['status'] = 200;
-						$output['error'] = "Uploading File Success";
+						$output['error'] = "Document has been uploaded, please check your email address";
 					}
 				}
-				@unlink($_FILES[$file_element_name]);
 			}
 		}else{			
 			$output['status']       = 401;
