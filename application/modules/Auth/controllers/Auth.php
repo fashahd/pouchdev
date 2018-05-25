@@ -31,8 +31,11 @@ class Auth extends MX_Controller {
 		$this->load->view('register');
 	}
 
-	function status(){
-		
+	function status($userID = null){
+		if($userID != ""){
+			$data["userID"] = $userID;
+			$this->load->view("status",$data);
+		}
 	}
 
 	function confirmation($userID = null){

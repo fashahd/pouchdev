@@ -105,8 +105,8 @@
             );
             $this->db->trans_begin();
             $this->db->insert('pouch_masteremployeecredential', $data);      
-            // $this->db->insert('pouch_mastercompanydata', $dataCompany);      
-            // $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
+            $this->db->insert('pouch_mastercompanydata', $dataCompany);      
+            $this->db->insert('pouch_mastercompanyaccount', $dataAccount);
             if(count($permission)>0){
                 for($i = 0; $i<count($permission);$i++){
                     $dataPermission = array(
