@@ -1,312 +1,256 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<!-- If you delete this tag, the sky will fall on your head -->
-<meta name="viewport" content="width=device-width" />
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Mypouch Auto Email</title>
-	
-<style>
-	/* ------------------------------------- 
-		GLOBAL 
-------------------------------------- */
-* { 
-	margin:0;
-	padding:0;
-}
-* { font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; }
-
-img { 
-	max-width: 100%; 
-}
-.collapse {
-	margin:0;
-	padding:0;
-}
-body {
-	-webkit-font-smoothing:antialiased; 
-	-webkit-text-size-adjust:none; 
-	width: 100%!important; 
-	height: 100%;
-}
-
-
-/* ------------------------------------- 
-		ELEMENTS 
-------------------------------------- */
-a { color: #2BA6CB;}
-
-.btn {
-	text-decoration:none;
-	color: #FFF;
-	background-color: #666;
-	padding:10px 16px;
-	font-weight:bold;
-	margin-right:10px;
-	text-align:center;
-	cursor:pointer;
-	display: inline-block;
-}
-
-p.callout {
-	padding:15px;
-	background-color:#ECF8FF;
-	margin-bottom: 15px;
-}
-.callout a {
-	font-weight:bold;
-	color: #2BA6CB;
-}
-
-table.social {
-/* 	padding:15px; */
-	background-color: #ebebeb;
-	
-}
-.social .soc-btn {
-	padding: 3px 7px;
-	font-size:12px;
-	margin-bottom:10px;
-	text-decoration:none;
-	color: #FFF;font-weight:bold;
-	display:block;
-	text-align:center;
-}
-a.fb { background-color: #3B5998!important; }
-a.tw { background-color: #1daced!important; }
-a.gp { background-color: #DB4A39!important; }
-a.ms { background-color: #000!important; }
-
-.sidebar .soc-btn { 
-	display:block;
-	width:100%;
-}
-
-/* ------------------------------------- 
-		HEADER 
-------------------------------------- */
-table.head-wrap { width: 100%;}
-
-.header.container table td.logo { padding: 15px; }
-.header.container table td.label { padding: 15px; padding-left:0px;}
-
-
-/* ------------------------------------- 
-		BODY 
-------------------------------------- */
-table.body-wrap { width: 100%;}
-
-
-/* ------------------------------------- 
-		FOOTER 
-------------------------------------- */
-table.footer-wrap { width: 100%;	clear:both!important;
-}
-.footer-wrap .container td.content  p { border-top: 1px solid rgb(215,215,215); padding-top:15px;}
-.footer-wrap .container td.content p {
-	font-size:10px;
-	font-weight: bold;
-	
-}
-
-
-/* ------------------------------------- 
-		TYPOGRAPHY 
-------------------------------------- */
-h1,h2,h3,h4,h5,h6 {
-font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; line-height: 1.1; margin-bottom:15px; color:#000;
-}
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { font-size: 60%; color: #6f6f6f; line-height: 0; text-transform: none; }
-
-h1 { font-weight:200; font-size: 44px;}
-h2 { font-weight:200; font-size: 37px;}
-h3 { font-weight:500; font-size: 27px;}
-h4 { font-weight:500; font-size: 23px;}
-h5 { font-weight:900; font-size: 17px;}
-h6 { font-weight:900; font-size: 14px; text-transform: uppercase; color:#444;}
-
-.collapse { margin:0!important;}
-
-p, ul { 
-	margin-bottom: 10px; 
-	font-weight: normal; 
-	font-size:14px; 
-	line-height:1.6;
-}
-p.lead { font-size:17px; }
-p.last { margin-bottom:0px;}
-
-ul li {
-	margin-left:5px;
-	list-style-position: inside;
-}
-
-/* ------------------------------------- 
-		SIDEBAR 
-------------------------------------- */
-ul.sidebar {
-	background:#ebebeb;
-	display:block;
-	list-style-type: none;
-}
-ul.sidebar li { display: block; margin:0;}
-ul.sidebar li a {
-	text-decoration:none;
-	color: #666;
-	padding:10px 16px;
-/* 	font-weight:bold; */
-	margin-right:10px;
-/* 	text-align:center; */
-	cursor:pointer;
-	border-bottom: 1px solid #777777;
-	border-top: 1px solid #FFFFFF;
-	display:block;
-	margin:0;
-}
-ul.sidebar li a.last { border-bottom-width:0px;}
-ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.sidebar li a h5,ul.sidebar li a h6,ul.sidebar li a p { margin-bottom:0!important;}
-
-
-
-/* --------------------------------------------------- 
-		RESPONSIVENESS
-		Nuke it from orbit. It's the only way to be sure. 
------------------------------------------------------- */
-
-/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
-.container {
-	display:block!important;
-	max-width:600px!important;
-	margin:0 auto!important; /* makes it centered */
-	clear:both!important;
-}
-
-/* This should also be a block element, so that it will fill 100% of the .container */
-.content {
-	padding:15px;
-	max-width:600px;
-	margin:0 auto;
-	display:block; 
-}
-
-/* Let's make sure tables in the content area are 100% wide */
-.content table { width: 100%; }
-
-
-/* Odds and ends */
-.column {
-	width: 300px;
-	float:left;
-}
-.column tr td { padding: 15px; }
-.column-wrap { 
-	padding:0!important; 
-	margin:0 auto; 
-	max-width:600px!important;
-}
-.column table { width:100%;}
-.social .column {
-	width: 280px;
-	min-width: 279px;
-	float:left;
-}
-
-/* Be sure to place a .clear element after each set of columns, just to be safe */
-.clear { display: block; clear: both; }
-
-
-/* ------------------------------------------- 
-		PHONE
-		For clients that support media queries.
-		Nothing fancy. 
--------------------------------------------- */
-@media only screen and (max-width: 600px) {
-	
-	a[class="btn"] { display:block!important; margin-bottom:10px!important; background-image:none!important; margin-right:0!important;}
-
-	div[class="column"] { width: auto!important; float:none!important;}
-	
-	table.social div[class="column"] {
-		width:auto!important;
-	}
-
-}
-</style>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Verify your email address</title>
+  <style type="text/css" rel="stylesheet" media="all">
+    /* Base ------------------------------ */
+    *:not(br):not(tr):not(html) {
+      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100% !important;
+      height: 100%;
+      margin: 0;
+      line-height: 1.4;
+      background-color: #F5F7F9;
+      color: #839197;
+      -webkit-text-size-adjust: none;
+    }
+    a {
+      color: #414EF9;
+    }
+    /* Layout ------------------------------ */
+    .email-wrapper {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #F5F7F9;
+    }
+    .email-content {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    /* Masthead ----------------------- */
+    .email-masthead {
+      padding: 25px 0;
+      text-align: center;
+    }
+    .email-masthead_logo {
+      max-width: 400px;
+      border: 0;
+    }
+    .email-masthead_name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #839197;
+      text-decoration: none;
+      text-shadow: 0 1px 0 white;
+    }
+    /* Body ------------------------------ */
+    .email-body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid #E7EAEC;
+      border-bottom: 1px solid #E7EAEC;
+      background-color: #FFFFFF;
+    }
+    .email-body_inner {
+      width: 570px;
+      margin: 0 auto;
+      padding: 0;
+    }
+    .email-footer {
+      width: 570px;
+      margin: 0 auto;
+      padding: 0;
+      text-align: center;
+    }
+    .email-footer p {
+      color: #839197;
+    }
+    .body-action {
+      width: 100%;
+      margin: 30px auto;
+      padding: 0;
+      text-align: center;
+    }
+    .body-sub {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid #E7EAEC;
+    }
+    .content-cell {
+      padding: 35px;
+    }
+    .align-right {
+      text-align: right;
+    }
+    /* Type ------------------------------ */
+    h1 {
+      margin-top: 0;
+      color: #292E31;
+      font-size: 19px;
+      font-weight: bold;
+      text-align: left;
+    }
+    h2 {
+      margin-top: 0;
+      color: #292E31;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+    }
+    h3 {
+      margin-top: 0;
+      color: #292E31;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: left;
+    }
+    p {
+      margin-top: 0;
+      color: #839197;
+      font-size: 16px;
+      line-height: 1.5em;
+      text-align: left;
+    }
+    p.sub {
+      font-size: 12px;
+	  color:#555;
+    }
+    p.center {
+      text-align: center;
+    }
+    /* Buttons ------------------------------ */
+    .button {
+      display: inline-block;
+      width: 200px;
+      background-color: #414EF9;
+      border-radius: 3px;
+      color: #ffffff;
+      font-size: 15px;
+      line-height: 45px;
+      text-align: center;
+      text-decoration: none;
+      -webkit-text-size-adjust: none;
+      mso-hide: all;
+    }
+    .button--green {
+      background-color: #28DB67;
+    }
+    .button--red {
+      background-color: #FF3665;
+    }
+    .button--blue {
+      background-color: #414EF9;
+    }
+    .button--cyan {
+      background-color: #00d8ff;
+    }
+    /*Media Queries ------------------------------ */
+    @media only screen and (max-width: 600px) {
+      .email-body_inner,
+      .email-footer {
+        width: 100% !important;
+      }
+    }
+    @media only screen and (max-width: 500px) {
+      .button {
+        width: 100% !important;
+      }
+    }
+  </style>
 </head>
- 
-<body bgcolor="#FFFFFF">
-
-<!-- HEADER -->
-<table class="head-wrap" bgcolor="#ddd">
-	<tr>
-		<td></td>
-		<td class="header container">			
-			<div class="content">
-				<table bgcolor="#ddd">
-					<tr>
-						<td><img style="width:200px"src="<?=base_url()?>appsources/mypouch-color.png" /></td>
-					</tr>
-				</table>
-			</div>				
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /HEADER -->
-<!-- BODY -->
-<table class="body-wrap">
-	<tr>
-		<td></td>
-		<td class="container" bgcolor="#FFFFFF">
-
-			<div class="content">
-			<table>
-				<tr>
-					<td>
-						
-						<h3>Thanks, <?=$name?></h3>
-						<p class="lead">One step closer to join us, please download and fill the document below.</p>
-						<a class="btn" href="<?=base_url()?>appsources/doc/form/form_registration_pouch.docx">Download</a>
-						<p class="lead">After you fill the document, please upload to this link :</p>
-						<a href="<?=base_url()?>auth/confirmation/<?=$userID?>">Open Link</a>					
-						<br/>
-						<br/>
-					</td>
-				</tr>
-			</table>
-			</div>
-									
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /BODY -->
-
-<!-- FOOTER -->
-<table class="footer-wrap">
-	<tr>
-		<td></td>
-		<td class="container">
-			
-				<!-- content -->
-				<div class="content">
-				<table>
-				<tr>
-					<td align="center">
-						<p>
-							<a href="#">Terms</a> |
-							<a href="#">Privacy</a> |
-							<a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>
-						</p>
-					</td>
-				</tr>
-			</table>
-				</div><!-- /content -->
-				
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /FOOTER -->
-
+<body>
+  <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+        <table class="email-content" width="100%" cellpadding="0" cellspacing="0">
+          <!-- Logo -->
+          <tr>
+            <td class="email-masthead">
+              <a class="email-masthead_name"><img style="width:200px"src="<?=base_url()?>appsources/mypouch-color.png" /></a>
+            </td>
+          </tr>
+          <!-- Email Body -->
+          <tr>
+            <td class="email-body" width="100%">
+              <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0">
+                <!-- Body content -->
+                <tr>
+                  <td class="content-cell">
+					<h2>Hallo, <?=$name?></h3>
+                    <p>Thanks for signing up to Mypouch! One step closer to join us, please download and fill the document below.</p>
+                    <!-- Action -->
+                    <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center">
+                          <div>
+                            <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{action_url}}" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="7%" stroke="f" fill="t">
+                            <v:fill type="tile" color="#414EF9" />
+                            <w:anchorlock/>
+                            <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Verify Email</center>
+                          </v:roundrect><![endif]-->
+                            <a target="_blank" href="<?=base_url()?>appsources/doc/form/form_registration_pouch.docx" class="button button--cyan">Download</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <p>After you fill the document, please upload to this link :</p>
+                    <!-- Action -->
+                    <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center">
+                          <div>
+                            <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{action_url}}" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="7%" stroke="f" fill="t">
+                            <v:fill type="tile" color="#414EF9" />
+                            <w:anchorlock/>
+                            <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Verify Email</center>
+                          </v:roundrect><![endif]-->
+                            <a target="_blank" href="<?=base_url()?>auth/confirmation/<?=$userID?>" class="button button--green">Upload The Document</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <p>Thanks,<br> Mypouch Support Team</p>
+                    <!-- Sub copy -->
+                    <table class="body-sub" style="background:#ddd;padding:10px">
+                      <tr>
+                        <td>
+                          <p class="sub">This email was automaticly sent by system, please don't reply this email.<br>
+						  
+						  any form of information such as telephone numbers, email or passwords that are confidential, do not inform the data to anyone, including those who act on behalf of mypouch.</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="content-cell">
+                    <p class="sub center">
+						Copyright &copy 2018 PT. Sakuku Digital Indonesia. All Right Reserved.
+                      <br>Jl. Pejuangan, Kb. Jeruk No.12, Kota Jakarta Barat, DKI Jakarta 11530
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
